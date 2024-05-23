@@ -2,14 +2,41 @@ const vscode = require(`vscode`);
 
 const {
   registerCommand,
+  commandQuickPick,
 } = require(`./lib/libVSCode.js`);
+
+const getCopyFormatArray = () => {
+  const formatData = vscode.workspace
+    .getConfiguration(`CopyFormatCode`).get(`CopyFormat`);
+  return formatData.map(item => item.format);
+};
 
 function activate(context) {
 
+  const selectFormat = (placeHolder) => {
+    const commands = [];
+
+    const formats = getCopyFormatArray();
+    for (const [index, format] of formats.entries()) {
+      commands.push({
+        label: format,
+        description: ``,
+        func: () => {
+
+        }
+      });
+    }
+
+    commandQuickPick(
+      commands,
+      placeHolder
+    );
+  };
+
   registerCommand(context,
-    `vscode-copy-format-code.Hello`,
+    `vscode-copy-format-code.SelectFormat`,
     () => {
-      vscode.window.showInformationMessage(`Hello`);
+      selectFormat(`Copy Format Code : Select Format`);
     }
   );
 

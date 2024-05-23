@@ -36,12 +36,22 @@
     "configuration": {
       "type": "object",
       "title": "CopyFormatCode",
-      "properties": {}
+      "properties": {
+        "CopyFormatCode.CopyFormat": {
+          "type": "array",
+          "default": [
+            { "format": "format1" },
+            { "format": "format2" },
+            { "format": "format3" }
+          ],
+          "description": "Smart Insert Date : DateFormat"
+        }
+      }
     },
     "commands": [
       {
-        "command": "vscode-copy-format-code.Hello",
-        "title": "Copy Format Code : Hello"
+        "command": "vscode-copy-format-code.SelectFormat",
+        "title": "Copy Format Code : Select Format..."
       }
     ],
     "keybindings": []
