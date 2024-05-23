@@ -41,52 +41,134 @@
           "type": "array",
           "default": [
             {
-              "label": "format1",
-              "format": {
-                "header": "HEADER",
-                "body": "BODY",
-                "footer": "FOOTER"
-              }
-            },
-            {
-              "label": "format2",
-              "format": {
-                "header": "HEADER",
-                "body": "BODY",
-                "footer": "FOOTER"
-              }
-            },
-            {
-              "label": "format3",
+              "label": "Markdown",
               "items": [
                 {
-                  "label": "format4",
+                  "label": "Markdown RelativePath",
                   "format": {
-                    "header": "HEADER",
-                    "body": "BODY",
-                    "footer": "FOOTER"
+                    "header": "```%FileExt% : %LineNumberStart%-%LineNumberEnd% : %ProjectName%/%FilePathRelativeSlash%",
+                    "body": "%Line%",
+                    "footer": "```"
                   }
                 },
                 {
-                  "label": "format5",
+                  "label": "Markdown FullPath",
                   "format": {
-                    "header": "HEADER",
-                    "body": "BODY",
-                    "footer": "FOOTER"
+                    "header": "```%FileExt% : %LineNumberStart%-%LineNumberEnd% : %FilePathFullSlash%",
+                    "body": "%Line%",
+                    "footer": "```"
                   }
                 }
               ]
             },
             {
-              "label": "format6",
-              "format": {
-                "header": "HEADER",
-                "body": "BODY",
-                "footer": "FOOTER"
-              }
+              "label": "with Line Number",
+              "items": [
+                {
+                  "label": "only Line Number",
+                  "format": {
+                    "header": "",
+                    "body": "%LineNumberFile%: %Line%",
+                    "footer": "",
+                    "option": {
+                      "lineNumber": true
+                    }
+                  }
+                },
+                {
+                  "label": "Markdown Line Number RelativePath",
+                  "format": {
+                    "header": "```%FileExt% : %ProjectName%/%FilePathRelativeSlash%",
+                    "body": "%LineNumberFile%: %Line%",
+                    "footer": "```",
+                    "option": {
+                      "lineNumber": true
+                    }
+                  }
+                },
+                {
+                  "label": "Markdown Line Number FullPath",
+                  "format": {
+                    "header": "```%FileExt% : %FilePathFullSlash%",
+                    "body": "%LineNumberFile%: %Line%",
+                    "footer": "```",
+                    "option": {
+                      "lineNumber": true
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Delete Indent and EmptyLine",
+              "items": [
+                {
+                  "label": "Markdown RelativePath",
+                  "format": {
+                    "header": "```%FileExt% : %LineNumberStart%-%LineNumberEnd% : %ProjectName%/%FilePathRelativeSlash%",
+                    "body": "%Line%",
+                    "footer": "```",
+                    "option": {
+                      "deleteIndent": true,
+                      "deleteBlankLine": true
+                    }
+                  }
+                },
+                {
+                  "label": "Markdown FullPath",
+                  "format": {
+                    "header": "```%FileExt% : %LineNumberStart%-%LineNumberEnd% : %FilePathFullSlash%",
+                    "body": "%Line%",
+                    "footer": "```",
+                    "option": {
+                      "deleteIndent": true,
+                      "deleteBlankLine": true
+                    }
+                  }
+                },
+                {
+                  "label": "only Line Number",
+                  "format": {
+                    "header": "",
+                    "body": "%LineNumberFile%: %Line%",
+                    "footer": "",
+                    "option": {
+                      "lineNumber": true,
+                      "deleteIndent": true,
+                      "deleteBlankLine": true
+                    }
+                  }
+                },
+                {
+                  "label": "Markdown Line Number RelativePath",
+                  "format": {
+                    "header": "```%FileExt% : %ProjectName%/%FilePathRelativeSlash%",
+                    "body": "%LineNumberFile%: %Line%",
+                    "footer": "```",
+                    "option": {
+                      "lineNumber": true,
+                      "deleteIndent": true,
+                      "deleteBlankLine": true
+                    }
+                  }
+                },
+                {
+                  "label": "Markdown Line Number FullPath",
+                  "format": {
+                    "header": "```%FileExt% : %FilePathFullSlash%",
+                    "body": "%LineNumberFile%: %Line%",
+                    "footer": "```",
+                    "option": {
+                      "lineNumber": true,
+                      "deleteIndent": true,
+                      "deleteBlankLine": true
+                    }
+                  }
+                }
+              ]
             }
           ],
-          "description": "Smart Insert Date : DateFormat"
+          "description": ""
         }
       }
     },

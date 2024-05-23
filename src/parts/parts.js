@@ -13,6 +13,8 @@ const { _deleteIndex } = require(`./string/_deleteIndex.js`);
 const { _deleteLength } = require(`./string/_deleteLength.js`);
 const { _deleteFirst } = require(`./string/_deleteFirst.js`);
 const { _deleteLast } = require(`./string/_deleteLast.js`);
+const { _excludeFirst } = require(`./string/_excludeFirst.js`);
+const { _excludeLast } = require(`./string/_excludeLast.js`);
 const { _trimFirst } = require(`./string/_trimFirst.js`);
 const { _trimLast } = require(`./string/_trimLast.js`);
 const { _trim } = require(`./string/_trim.js`);
@@ -27,6 +29,7 @@ const { _subLastDelimFirst } = require(`./string/_subLastDelimFirst.js`);
 const { _paddingFirst } = require(`./string/_paddingFirst.js`);
 const { _paddingLast } = require(`./string/_paddingLast.js`);
 
+const { __min } = require(`./array/__min.js`);
 const { __max } = require(`./array/__max.js`);
 const { _findFirstIndex } = require(`./array/_findFirstIndex.js`);
 const { _findFirst } = require(`./array/_findFirst.js`);
@@ -49,6 +52,7 @@ module.exports = {
   _isFirst, _isLast,
   _deleteIndex, _deleteLength,
   _deleteFirst, _deleteLast,
+  _excludeFirst, _excludeLast,
   _trimFirst, _trimLast, _trim,
   _subLength, _subIndex,
   _subFirst, _subLast,
@@ -58,7 +62,7 @@ module.exports = {
   _subFirstDelimFirst, _subLastDelimFirst,
   _paddingFirst, _paddingLast,
 
-  __max,
+  __min, __max,
   _findFirstIndex, _findFirst,
   _unique,
 
