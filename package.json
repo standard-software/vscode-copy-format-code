@@ -40,9 +40,51 @@
         "CopyFormatCode.CopyFormat": {
           "type": "array",
           "default": [
-            { "format": "format1" },
-            { "format": "format2" },
-            { "format": "format3" }
+            {
+              "label": "format1",
+              "format": {
+                "header": "HEADER",
+                "body": "BODY",
+                "footer": "FOOTER"
+              }
+            },
+            {
+              "label": "format2",
+              "format": {
+                "header": "HEADER",
+                "body": "BODY",
+                "footer": "FOOTER"
+              }
+            },
+            {
+              "label": "format3",
+              "items": [
+                {
+                  "label": "format4",
+                  "format": {
+                    "header": "HEADER",
+                    "body": "BODY",
+                    "footer": "FOOTER"
+                  }
+                },
+                {
+                  "label": "format5",
+                  "format": {
+                    "header": "HEADER",
+                    "body": "BODY",
+                    "footer": "FOOTER"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "format6",
+              "format": {
+                "header": "HEADER",
+                "body": "BODY",
+                "footer": "FOOTER"
+              }
+            }
           ],
           "description": "Smart Insert Date : DateFormat"
         }

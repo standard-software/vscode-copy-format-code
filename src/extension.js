@@ -5,26 +5,38 @@ const {
   commandQuickPick,
 } = require(`./lib/libVSCode.js`);
 
-const getCopyFormatArray = () => {
+const getCopyFormatDataArray = () => {
   const formatData = vscode.workspace
     .getConfiguration(`CopyFormatCode`).get(`CopyFormat`);
-  return formatData.map(item => item.format);
+  return formatData;
 };
 
 function activate(context) {
 
-  const selectFormat = (placeHolder) => {
+  const selectFormat = (placeHolder, formats) => {
     const commands = [];
 
-    const formats = getCopyFormatArray();
-    for (const [index, format] of formats.entries()) {
-      commands.push({
-        label: format,
-        description: ``,
-        func: () => {
+    for (const [index, formatData] of formats.entries()) {
+      if (formatData.format) {
+        commands.push({
+          label: formatData.label,
+          description: ``,
+          func: () => {
 
-        }
-      });
+          }
+        });
+      } else if (formatData.items) {
+        commands.push({
+          label: formatData.label,
+          description: `▸`,
+          func: () => {
+            selectFormat(
+              `Copy Format Code : Select Format : ${formatData.label}`,
+              formatData.items
+            );
+          }
+        });
+      }
     }
 
     commandQuickPick(
@@ -36,7 +48,10 @@ function activate(context) {
   registerCommand(context,
     `vscode-copy-format-code.SelectFormat`,
     () => {
-      selectFormat(`Copy Format Code : Select Format`);
+      selectFormat(
+        `Copy Format Code : Select Format`,
+        getCopyFormatDataArray()
+      );
     }
   );
 
