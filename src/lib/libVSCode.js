@@ -26,15 +26,15 @@ const commandQuickPick = (commands, placeHolder) => {
   //   {label:``, kind:vscode.QuickPickItemKind.Separator}
   // ]
   vscode.window.showQuickPick(
-    // eslint-disable-next-line no-unused-vars
-    commands.map(({func, ...command}) => (command)),
+     
+    commands.map(({ func, ...command }) => (command)),
     {
       canPickMany: false,
       placeHolder
     }
   ).then((item) => {
     if (!item) { return; }
-    commands.find(({label}) => label === item.label).func();
+    commands.find(({ label }) => label === item.label).func();
   });
 };
 
@@ -100,7 +100,7 @@ const insertTextSelected = (editor, str) => {
           const selectionStartLine = selection.start.line - (strLines.length - 1);
           const selectionStartCharactor =
             editor.document.lineAt(selectionStartLine).text.length -
-            strLines[0].length
+            strLines[0].length;
           newSelections.push(new vscode.Selection(
             selectionStartLine,
             selectionStartCharactor,
@@ -123,7 +123,7 @@ const getSelectedText = (editor) => {
     result.push(text);
   };
   return result;
-}
+};
 
 
 module.exports = {

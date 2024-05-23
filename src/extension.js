@@ -1,4 +1,4 @@
-const vscode = require('vscode');
+const vscode = require(`vscode`);
 
 const {
   registerCommand,
@@ -20,4 +20,4 @@ function deactivate() {}
 module.exports = {
   activate,
   deactivate
-}
+};

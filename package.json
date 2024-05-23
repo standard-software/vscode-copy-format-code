@@ -50,11 +50,14 @@
     "quickPickSeparators"
   ],
   "scripts": {
-    "lint": "eslint --fix ./src",
+    "lint": "npx eslint",
+    "lintfix": "npx eslint --fix",
     "pack": "npx -y vsce package && code --install-extension vscode-copy-format-code-0.1.0.vsix",
     "": ""
   },
   "devDependencies": {
-    "eslint": "^8.52.0"
+    "@eslint/js": "^9.3.0",
+    "eslint": "^9.3.0",
+    "globals": "^15.3.0"
   }
 }
