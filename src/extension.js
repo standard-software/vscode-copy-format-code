@@ -4,23 +4,15 @@ path = require(`path`);
 const {
   registerCommand,
   commandQuickPick,
-
-  getTextNoLineNumberNoFormat,
-  getTextNoLineNumberDeleteIndent,
-  getTextNoLineNumberDeleteBlankLine,
-  getTextNoLineNumberDeleteIndentBlankLine,
-  getTextLineNumberNoFormat,
-  getTextLineNumberDeleteIndent,
-  getTextLineNumberDeleteBlankLine,
-  getTextLineNumberDeleteIndentBlankLine,
-
 } = require(`./lib/libVSCode.js`);
 
 const {
   __min, __max,
   _excludeFirst,
+  _subLength,
   _subFirstDelimFirst,
   _trim,
+  _trimFirst,
 } = require(`./parts/parts.js`);
 
 const assert = (condition, message) => {
@@ -121,13 +113,32 @@ const replaceHeaderFooter = (editor, text) => {
   return text;
 };
 
+const getIndent = (line) => {
+  return line.length - _trimFirst(line, [` `, `\t`]).length;
+};
+
+const getMinIndent = (editor) => {
+  let minIndent = Infinity;
+  for (const { start, end } of editor.selections) {
+    for (let i = start.line; i <= end.line; i += 1) {
+      const lineText = editor.document.lineAt(i).text;
+      if (_trim(lineText) === ``) { continue; }
+      const indent = getIndent(lineText);
+      if (indent < minIndent) {
+        minIndent = indent;
+      }
+    }
+  }
+  if (minIndent === Infinity) { minIndent = 0; }
+  return minIndent;
+};
+
 const copyCode = (format) => {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
     vscode.window.showInformationMessage(`No editor is active`);
     return;
   }
-
   const header = replaceHeaderFooter(editor, format.header);
   const footer = replaceHeaderFooter(editor, format.footer);
 
@@ -138,13 +149,16 @@ const copyCode = (format) => {
     const startLine = __min(editor.selections.map(s=>s.start.line)) + 1;
     const endLine = __max(editor.selections.map(s=>s.end.line)) + 1;
 
-    console.log(`extension.js 142`, startLine, endLine);
-
     let numberDigit = 0;
     if (option.lineNumber === `file`) {
       numberDigit = endLine.toString().length;
     } else if (option.lineNumber === `startOne`) {
       numberDigit = (endLine - startLine + 1).toString().length;
+    }
+
+    let minIndent;
+    if (option.deleteIndent) {
+      minIndent = getMinIndent(editor);
     }
 
     let result = ``;
@@ -158,10 +172,14 @@ const copyCode = (format) => {
           break;
         }
 
-        const lineText = editor.document.lineAt(i).text;
+        let lineText = editor.document.lineAt(i).text;
 
         if (option.deleteBlankLine) {
           if (_trim(lineText) === ``) { continue; }
+        }
+
+        if (option.deleteIndent) {
+          lineText = _subLength(lineText, minIndent);
         }
 
         if (option.lineNumber === `none`) {
@@ -184,36 +202,18 @@ const copyCode = (format) => {
   };
 
 
-  let body = ``;
-  if (!format.option) {
-    body = getText(editor,  { lineNumber: `none` });
-  } else {
-    const { deleteIndent, deleteBlankLine, lineNumber } = format.option;
-    if (!lineNumber) {
-      if (deleteIndent && deleteBlankLine) {
-        body = getTextNoLineNumberDeleteIndentBlankLine(editor);
-      } else if (deleteIndent) {
-        body = getTextNoLineNumberDeleteIndent(editor);
-      } else if (deleteBlankLine) {
-        body = getText(editor, { lineNumber: `none`, deleteBlankLine: true });
-      } else {
-        body = getText(editor, { lineNumber: `none` });
-      }
-    } else {
-      if (deleteIndent && deleteBlankLine) {
-        body = getTextLineNumberDeleteIndentBlankLine(editor);
-      } else if (deleteIndent) {
-        body = getTextLineNumberDeleteIndent(editor);
-      } else if (deleteBlankLine) {
-        body = getText(editor, { lineNumber: `file`, deleteBlankLine: true });
-      } else {
-        body = getText(editor, { lineNumber: `file` });
-      }
+  const {
+    deleteIndent = false, deleteBlankLine = false, lineNumber = false
+  } = format.option;
+  const body = getText(editor,
+    {
+      lineNumber: lineNumber ? `file` : `none`,
+      deleteBlankLine,
+      deleteIndent,
     }
-  }
+  );
 
   const copyText = header + body + footer;
-  // console.log(`extension.js 65`, copyText);
   vscode.env.clipboard.writeText(copyText);
 };
 
