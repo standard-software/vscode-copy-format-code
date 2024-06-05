@@ -20,7 +20,7 @@ const {
   __min, __max,
   _excludeFirst,
   _subFirstDelimFirst,
-  _paddingFirst,
+  _trim,
 } = require(`./parts/parts.js`);
 
 const assert = (condition, message) => {
@@ -108,7 +108,7 @@ const replaceHeaderFooter = (editor, text) => {
     `${startLine}`
   );
   text = text.replaceAll(`%LineNumberStartZeroPad%`,
-    _paddingFirst(`${startLine}`, `${endLine}`.length, `0`)
+    startLine.toString().padStart(endLine.toString().length, `0`)
   );
   text = text.replaceAll(`%LineNumberEnd%`,
     `${endLine}`
@@ -132,10 +132,9 @@ const copyCode = (format) => {
   const footer = replaceHeaderFooter(editor, format.footer);
 
   const getText = (editor, option) => {
-    const lineBreak = getLineBreak(editor);
-
     assert([`none`, `file`, `startOne`].includes(option.lineNumber));
 
+    const lineBreak = getLineBreak(editor);
     const startLine = __min(editor.selections.map(s=>s.start.line)) + 1;
     const endLine = __max(editor.selections.map(s=>s.end.line)) + 1;
 
@@ -160,6 +159,11 @@ const copyCode = (format) => {
         }
 
         const lineText = editor.document.lineAt(i).text;
+
+        if (option.deleteBlankLine) {
+          if (_trim(lineText) === ``) { continue; }
+        }
+
         if (option.lineNumber === `none`) {
           result += `${lineText}${lineBreak}`;
         } else if (option.lineNumber === `file`) {
@@ -191,7 +195,7 @@ const copyCode = (format) => {
       } else if (deleteIndent) {
         body = getTextNoLineNumberDeleteIndent(editor);
       } else if (deleteBlankLine) {
-        body = getTextNoLineNumberDeleteBlankLine(editor);
+        body = getText(editor, { lineNumber: `none`, deleteBlankLine: true });
       } else {
         body = getText(editor, { lineNumber: `none` });
       }
@@ -201,7 +205,7 @@ const copyCode = (format) => {
       } else if (deleteIndent) {
         body = getTextLineNumberDeleteIndent(editor);
       } else if (deleteBlankLine) {
-        body = getTextLineNumberDeleteBlankLine(editor);
+        body = getText(editor, { lineNumber: `file`, deleteBlankLine: true });
       } else {
         body = getText(editor, { lineNumber: `file` });
       }
