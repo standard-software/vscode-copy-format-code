@@ -95,7 +95,7 @@
               "label": "Test",
               "items": [
                 {
-                  "label": "Output Header Value",
+                  "label": "Output Header",
                   "format": {
                     "header": "%FilePathFull%\n%FilePathFullSlash%\n%FileName%\n%FileExt%\n%FileNameWithoutExt%\n%FolderPath%\n%FolderPathSlash%\n%FolderName%\n%FilePathRelative%\n%FilePathRelativeSlash%\n%ProjectFolderPath%\n%ProjectFolderPathSlash%\n%ProjectName%\n%LineNumberStart%\n%LineNumberStartZeroPad%\n%LineNumberEnd%\n",
                     "body": "%LineNumberFile%: %Line%",
@@ -105,12 +105,48 @@
                   }
                 },
                 {
-                  "label": "Delete Indent",
-                  "items": []
+                  "label": "Output Body",
+                  "format": {
+                    "header": "",
+                    "body": "%Line%",
+                    "option": {}
+                  }
                 },
                 {
-                  "label": "Delete Indent and BlankLine",
-                  "items": []
+                  "label": "Output Body LineNumberFile",
+                  "format": {
+                    "header": "",
+                    "body": "%NumberFile%: %Line%",
+                    "bodySeparator": "",
+                    "option": {}
+                  }
+                },
+                {
+                  "label": "Output Body LineNumberStart1",
+                  "format": {
+                    "header": "",
+                    "body": "%NumberStart1%: %LineCutMinIndent%",
+                    "bodySeparator": ":",
+                    "option": {}
+                  }
+                },
+                {
+                  "label": "Output Body LineTrimFirst SpacePadEnd",
+                  "format": {
+                    "header": "",
+                    "body": "%NumberFile%: %LineTrimFirst%%SpacePadEnd%",
+                    "bodySeparator": ":",
+                    "option": {}
+                  }
+                },
+                {
+                  "label": "Output Body LineTrimEnd SpacePadEnd SkipBlankLine",
+                  "format": {
+                    "header": "",
+                    "body": "%SkipBlankLine%%NumberFile%: %LineTrimLast%%SpacePadEnd%",
+                    "bodySeparator": ":",
+                    "option": {}
+                  }
                 }
               ]
             },

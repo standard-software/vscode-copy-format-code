@@ -14,6 +14,7 @@ const {
   _subFirstDelimFirst,
   _trim,
   _trimFirst,
+  _trimLast,
 } = require(`./parts/parts.js`);
 
 const assert = (condition, message) => {
@@ -47,10 +48,8 @@ const driveLetterUpper = path => {
   return path;
 };
 
-const replaceHeaderFooter = (editor, text) => {
-  if (!text) {
-    return ``;
-  }
+const formatHeaderFooter = (editor, format) => {
+  if (!format) { return ``; }
 
   const lineBreak = getLineBreak(editor);
   assert(!isUndefined(lineBreak));
@@ -95,14 +94,17 @@ const replaceHeaderFooter = (editor, text) => {
   rf[`¥r¥n`] = `\n`;
   rf[`\n`] = lineBreak;
 
+  rf[`\\%`] = `%`;    // \% -> %
+  rf[`\\\\`] = `\\`;  // \\ -> \
+
   for (const [key, newPattern] of Object.entries(replaceTable)) {
     const oldPattern = `%${key[0].toUpperCase() + key.slice(1)}%`;
-    text = text.replaceAll(oldPattern, newPattern);
+    format = format.replaceAll(oldPattern, newPattern);
   }
 
-  text += lineBreak;
+  format += lineBreak;
 
-  return text;
+  return format;
 };
 
 const getIndent = (line) => {
@@ -125,85 +127,99 @@ const getMinIndent = (editor) => {
   return minIndent;
 };
 
+const formatBody = (editor, bodyFormat, bodySeparator) => {
+  if (isUndefined(bodyFormat) || bodyFormat === ``) { return ``; }
+
+  const lineBreak = getLineBreak(editor);
+  const startLine = __min(editor.selections.map(s=>s.start.line)) + 1;
+  const endLine = __max(editor.selections.map(s=>s.end.line)) + 1;
+
+  const numberDigitFile = endLine.toString().length;
+  const numberDigitStart1 = (endLine - startLine + 1).toString().length;
+
+  const minIndent = getMinIndent(editor);
+
+  const skipBlankLine = bodyFormat.includes(`%SkipBlankLine%`);
+
+  let maxLineLength = 0;
+  const results = [];
+  for (const [selectionIndex, { start, end }] of editor.selections.entries()) {
+    let result = [];
+    for (let i = start.line; i <= end.line; i += 1) {
+      if (
+        start.line !== end.line &&
+        i === end.line &&
+        end.character === 0
+      ) {
+        break;
+      }
+
+      let line = bodyFormat;
+
+      const replaceTable = {};
+      const rf = replaceTable;
+      const _numberStart1 = (i - start.line + 1);
+      rf.numberStart1 = _numberStart1.toString().padStart(numberDigitStart1, `0`);
+      rf.numberFile = (i + 1).toString().padStart(numberDigitFile, `0`);
+
+      rf.line = editor.document.lineAt(i).text;
+      if (skipBlankLine && _trim(rf.line) === ``) { continue; }
+      rf.lineCutMinIndent = _subLength(rf.line, minIndent);
+      rf.lineTrim = _trim(rf.line);
+      rf.lineTrimFirst = _trimFirst(rf.line);
+      rf.lineTrimLast = _trimLast(rf.line);
+      rf.lineTrimLast = _trimLast(rf.line);
+      rf.spaceMinIndent = ` `.repeat(minIndent);
+      // rf.spacePadEnd = ``;
+      rf.skipBlankLine = ``;
+
+      rf[`¥r¥n`] = `\n`;
+      rf[`\n`] = lineBreak;
+
+      rf[`\\%`] = `%`;    // \% -> %
+      rf[`\\\\`] = `\\`;  // \\ -> \
+
+      for (const [key, newPattern] of Object.entries(replaceTable)) {
+        const oldPattern = `%${key[0].toUpperCase() + key.slice(1)}%`;
+        line = line.replaceAll(oldPattern, newPattern);
+      }
+      result.push(line + lineBreak);
+      maxLineLength = Math.max(
+        maxLineLength, line.length - `%SpacePadEnd%`.length
+      );
+    }
+    results.push(result);
+  }
+
+  if (bodyFormat.includes(`%SpacePadEnd%`)) {
+    for (let result of results) {
+      for (let [i, line] of result.entries()) {
+        line = line.replaceAll(`%SpacePadEnd%`,
+          ` `.repeat(
+            maxLineLength -  (line.length - `%SpacePadEnd%`.length - lineBreak.length)
+          )
+        );
+        result[i] = line;
+      }
+    }
+  }
+
+  return results.map(r=>r.join(``)).join(
+    isUndefined(bodySeparator) ? ``
+      : (bodySeparator + lineBreak)
+  );
+
+};
+
 const copyCode = (format) => {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
     vscode.window.showInformationMessage(`No editor is active`);
     return;
   }
-  const header = replaceHeaderFooter(editor, format.header);
-  const footer = replaceHeaderFooter(editor, format.footer);
-
-  const getText = (editor, option) => {
-    assert([`none`, `file`, `startOne`].includes(option.lineNumber));
-
-    const lineBreak = getLineBreak(editor);
-    const startLine = __min(editor.selections.map(s=>s.start.line)) + 1;
-    const endLine = __max(editor.selections.map(s=>s.end.line)) + 1;
-
-    let numberDigit = 0;
-    if (option.lineNumber === `file`) {
-      numberDigit = endLine.toString().length;
-    } else if (option.lineNumber === `startOne`) {
-      numberDigit = (endLine - startLine + 1).toString().length;
-    }
-
-    let minIndent;
-    if (option.deleteIndent) {
-      minIndent = getMinIndent(editor);
-    }
-
-    let result = ``;
-    for (const [selectionIndex, { start, end }] of editor.selections.entries()) {
-      for (let i = start.line; i <= end.line; i += 1) {
-        if (
-          start.line !== end.line &&
-          i === end.line &&
-          end.character === 0
-        ) {
-          break;
-        }
-
-        let lineText = editor.document.lineAt(i).text;
-
-        if (option.deleteBlankLine) {
-          if (_trim(lineText) === ``) { continue; }
-        }
-
-        if (option.deleteIndent) {
-          lineText = _subLength(lineText, minIndent);
-        }
-
-        if (option.lineNumber === `none`) {
-          result += `${lineText}${lineBreak}`;
-        } else if (option.lineNumber === `file`) {
-          const lineNumber =
-            (i + 1).toString().padStart(numberDigit, `0`);
-          result += `${lineNumber}: ${lineText}${lineBreak}`;
-        } else if (option.lineNumber === `startOne`) {
-          const lineNumber =
-            (i + 1 - startLine + 1).toString().padStart(numberDigit, `0`);
-          result += `${lineNumber}: ${lineText}${lineBreak}`;
-        }
-      }
-      if (selectionIndex !== editor.selections.length - 1) {
-        result += lineBreak;
-      }
-    }
-    return result;
-  };
-
-
-  const {
-    deleteIndent = false, deleteBlankLine = false, lineNumber = false
-  } = format.option ?? {};
-  const body = getText(editor,
-    {
-      lineNumber: lineNumber ? `file` : `none`,
-      deleteBlankLine,
-      deleteIndent,
-    }
-  );
+  const header = formatHeaderFooter(editor, format.header);
+  const footer = formatHeaderFooter(editor, format.footer);
+  const body = formatBody(editor, format.body, format.bodySeparator);
 
   const copyText = header + body + footer;
   vscode.env.clipboard.writeText(copyText);
