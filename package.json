@@ -2,7 +2,7 @@
   "name": "vscode-copy-format-code",
   "displayName": "Copy Format Code",
   "description": "This extension can be copied with code headers and other decorations.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "icon": "vscode-copy-format-code_icon.png",
   "publisher": "SatoshiYamamoto",
   "author": {
@@ -30,6 +30,20 @@
     "format",
     "code"
   ],
+  "enabledApiProposals": [
+    "quickPickSeparators"
+  ],
+  "scripts": {
+    "lint": "npx eslint",
+    "lintfix": "npx eslint --fix",
+    "pack": "npx -y vsce package && code --install-extension vscode-copy-format-code-0.1.1.vsix",
+    "": ""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.3.0",
+    "eslint": "^9.3.0",
+    "globals": "^15.3.0"
+  },
   "activationEvents": [],
   "main": "./src/extension.js",
   "contributes": {
@@ -41,7 +55,25 @@
           "type": "array",
           "default": [
             {
-              "label": "Markdown RelativePath",
+              "label": "Header RelativePath",
+              "format": {
+                "header": "%ProjectName%/%FilePathRelativeSlash%",
+                "body": "%Line%",
+                "footer": ""
+              }
+            },
+            {
+              "label": "Header RelativePath Body LineNumber",
+              "format": {
+                "header": "%ProjectName%/%FilePathRelativeSlash%",
+                "body": "%LineNumberFile%: %Line%",
+                "option": {
+                  "lineNumber": true
+                }
+              }
+            },
+            {
+              "label": "Markdown",
               "format": {
                 "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash% : %LineNumberStart%-%LineNumberEnd%",
                 "body": "%Line%",
@@ -49,48 +81,36 @@
               }
             },
             {
-              "label": "Markdown FullPath",
+              "label": "Markdown LineNumber",
               "format": {
-                "header": "```%FileExt%¥n// %FilePathFullSlash% : %LineNumberStart%-%LineNumberEnd%",
-                "body": "%Line%",
-                "footer": "```"
+                "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash% : %LineNumberStart%-%LineNumberEnd%",
+                "body": "%LineNumberFile%: %Line%",
+                "footer": "```",
+                "option": {
+                  "lineNumber": true
+                }
               }
             },
             {
-              "label": "with Line Number",
+              "label": "Test",
               "items": [
                 {
-                  "label": "Line Number RelativePath",
+                  "label": "Output Header Value",
                   "format": {
-                    "header": "%ProjectName%/%FilePathRelativeSlash%",
+                    "header": "%FilePathFull%\n%FilePathFullSlash%\n%FileName%\n%FileExt%\n%FileNameWithoutExt%\n%FolderPath%\n%FolderPathSlash%\n%FolderName%\n%FilePathRelative%\n%FilePathRelativeSlash%\n%ProjectFolderPath%\n%ProjectFolderPathSlash%\n%ProjectName%\n%LineNumberStart%\n%LineNumberStartZeroPad%\n%LineNumberEnd%\n",
                     "body": "%LineNumberFile%: %Line%",
-                    "footer": "",
                     "option": {
                       "lineNumber": true
                     }
                   }
                 },
                 {
-                  "label": "Markdown Line Number RelativePath",
-                  "format": {
-                    "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash%",
-                    "body": "%LineNumberFile%: %Line%",
-                    "footer": "```",
-                    "option": {
-                      "lineNumber": true
-                    }
-                  }
+                  "label": "Delete Indent",
+                  "items": []
                 },
                 {
-                  "label": "Markdown Line Number FullPath",
-                  "format": {
-                    "header": "```%FileExt%¥n// %FilePathFullSlash%",
-                    "body": "%LineNumberFile%: %Line%",
-                    "footer": "```",
-                    "option": {
-                      "lineNumber": true
-                    }
-                  }
+                  "label": "Delete Indent and BlankLine",
+                  "items": []
                 }
               ]
             },
@@ -99,208 +119,15 @@
               "items": [
                 {
                   "label": "Delete BlankLine",
-                  "items": [
-                    {
-                      "label": "Markdown RelativePath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash% : %LineNumberStart%-%LineNumberEnd%",
-                        "body": "%Line%",
-                        "footer": "```",
-                        "option": {
-                          "deleteIndent": false,
-                          "deleteBlankLine": true
-                        }
-                      }
-                    },
-                    {
-                      "label": "Markdown FullPath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %FilePathFullSlash% : %LineNumberStart%-%LineNumberEnd%",
-                        "body": "%Line%",
-                        "footer": "```",
-                        "option": {
-                          "deleteIndent": false,
-                          "deleteBlankLine": true
-                        }
-                      }
-                    },
-                    {
-                      "label": "Line Number RelativePath",
-                      "format": {
-                        "header": "%ProjectName%/%FilePathRelativeSlash%",
-                        "body": "%LineNumberFile%: %Line%",
-                        "footer": "",
-                        "option": {
-                          "lineNumber": true,
-                          "deleteIndent": false,
-                          "deleteBlankLine": true
-                        }
-                      }
-                    },
-                    {
-                      "label": "Markdown Line Number RelativePath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash%",
-                        "body": "%LineNumberFile%: %Line%",
-                        "footer": "```",
-                        "option": {
-                          "lineNumber": true,
-                          "deleteIndent": false,
-                          "deleteBlankLine": true
-                        }
-                      }
-                    },
-                    {
-                      "label": "Markdown Line Number FullPath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %FilePathFullSlash%",
-                        "body": "%LineNumberFile%: %Line%",
-                        "footer": "```",
-                        "option": {
-                          "lineNumber": true,
-                          "deleteIndent": false,
-                          "deleteBlankLine": true
-                        }
-                      }
-                    }
-                  ]
+                  "items": []
                 },
                 {
                   "label": "Delete Indent",
-                  "items": [
-                    {
-                      "label": "Markdown RelativePath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash% : %LineNumberStart%-%LineNumberEnd%",
-                        "body": "%Line%",
-                        "footer": "```",
-                        "option": {
-                          "deleteIndent": true,
-                          "deleteBlankLine": false
-                        }
-                      }
-                    },
-                    {
-                      "label": "Markdown FullPath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %FilePathFullSlash% : %LineNumberStart%-%LineNumberEnd%",
-                        "body": "%Line%",
-                        "footer": "```",
-                        "option": {
-                          "deleteIndent": true,
-                          "deleteBlankLine": false
-                        }
-                      }
-                    },
-                    {
-                      "label": "Line Number RelativePath",
-                      "format": {
-                        "header": "%ProjectName%/%FilePathRelativeSlash%",
-                        "body": "%LineNumberFile%: %Line%",
-                        "footer": "",
-                        "option": {
-                          "lineNumber": true,
-                          "deleteIndent": true,
-                          "deleteBlankLine": false
-                        }
-                      }
-                    },
-                    {
-                      "label": "Markdown Line Number RelativePath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash%",
-                        "body": "%LineNumberFile%: %Line%",
-                        "footer": "```",
-                        "option": {
-                          "lineNumber": true,
-                          "deleteIndent": true,
-                          "deleteBlankLine": false
-                        }
-                      }
-                    },
-                    {
-                      "label": "Markdown Line Number FullPath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %FilePathFullSlash%",
-                        "body": "%LineNumberFile%: %Line%",
-                        "footer": "```",
-                        "option": {
-                          "lineNumber": true,
-                          "deleteIndent": true,
-                          "deleteBlankLine": false
-                        }
-                      }
-                    }
-                  ]
+                  "items": []
                 },
-
                 {
                   "label": "Delete Indent and BlankLine",
-                  "items": [
-                    {
-                      "label": "Markdown RelativePath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash% : %LineNumberStart%-%LineNumberEnd%",
-                        "body": "%Line%",
-                        "footer": "```",
-                        "option": {
-                          "deleteIndent": true,
-                          "deleteBlankLine": true
-                        }
-                      }
-                    },
-                    {
-                      "label": "Markdown FullPath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %FilePathFullSlash% : %LineNumberStart%-%LineNumberEnd%",
-                        "body": "%Line%",
-                        "footer": "```",
-                        "option": {
-                          "deleteIndent": true,
-                          "deleteBlankLine": true
-                        }
-                      }
-                    },
-                    {
-                      "label": "Line Number RelativePath",
-                      "format": {
-                        "header": "%ProjectName%/%FilePathRelativeSlash%",
-                        "body": "%LineNumberFile%: %Line%",
-                        "footer": "",
-                        "option": {
-                          "lineNumber": true,
-                          "deleteIndent": true,
-                          "deleteBlankLine": true
-                        }
-                      }
-                    },
-                    {
-                      "label": "Markdown Line Number RelativePath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash%",
-                        "body": "%LineNumberFile%: %Line%",
-                        "footer": "```",
-                        "option": {
-                          "lineNumber": true,
-                          "deleteIndent": true,
-                          "deleteBlankLine": true
-                        }
-                      }
-                    },
-                    {
-                      "label": "Markdown Line Number FullPath",
-                      "format": {
-                        "header": "```%FileExt%¥n// %FilePathFullSlash%",
-                        "body": "%LineNumberFile%: %Line%",
-                        "footer": "```",
-                        "option": {
-                          "lineNumber": true,
-                          "deleteIndent": true,
-                          "deleteBlankLine": true
-                        }
-                      }
-                    }
-                  ]
+                  "items": []
                 }
               ]
             }
@@ -316,19 +143,5 @@
       }
     ],
     "keybindings": []
-  },
-  "enabledApiProposals": [
-    "quickPickSeparators"
-  ],
-  "scripts": {
-    "lint": "npx eslint",
-    "lintfix": "npx eslint --fix",
-    "pack": "npx -y vsce package && code --install-extension vscode-copy-format-code-0.1.0.vsix",
-    "": ""
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.3.0",
-    "eslint": "^9.3.0",
-    "globals": "^15.3.0"
   }
 }

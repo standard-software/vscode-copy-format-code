@@ -4,14 +4,17 @@ Header/Footer
 
   %FilePathFull%
   %FilePathFullSlash%
-  %FilePathRelative%
-  %FilePathRelativeSlash%
-  %ProjectName%/%FilePathRelative%
-  %ProjectName%/%FilePathRelativeSlash%
-  %FileNameWithoutExt%
   %FileName%
   %FileExt%
-  %ParentFolderName%
+  %FileNameWithoutExt%
+  %FolderPath%
+  %FolderPathSlash%
+  %FolderName%
+  %FilePathRelative%
+  %FilePathRelativeSlash%
+  %ProjectFolderPath%
+  %ProjectFolderPathSlash%
+  %ProjectName%
 
   %LineNumberStart%
   %LineNumberStartZeroPad%
