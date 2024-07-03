@@ -56,10 +56,6 @@
           "default": [
             {
               "label": "Markdown",
-              "separator": true
-            },
-            {
-              "label": "Markdown",
               "format": {
                 "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                 "body": "%Line%",
@@ -75,10 +71,6 @@
                 "bodySeparator": ":",
                 "footer": "```"
               }
-            },
-            {
-              "label": "Text",
-              "separator": true
             },
             {
               "label": "Header RelativePath",
@@ -102,7 +94,7 @@
             },
             {
               "label": "Test",
-              "visible": true,
+              "visible": false,
               "items": [
                 {
                   "label": "Output Header",
