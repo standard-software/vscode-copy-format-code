@@ -77,9 +77,19 @@ const formatHeaderFooter = (editor, format) => {
     : rf.filePath;
   rf.filePathRelativeSlash =
     rf.filePathRelative.replaceAll(`\\`, `/`);
-
   rf.folderPathRelative = path.dirname(rf.filePathRelative);
   rf.folderPathRelativeSlash = rf.folderPathRelative.replaceAll(`\\`, `/`);
+
+  rf.filePathRelativeProject = workspaceFolder
+    ? path.relative(
+      path.dirname(workspaceFolder.uri.fsPath),
+      editor.document.uri.fsPath
+    )
+    : rf.filePath;
+  rf.filePathRelativeProjectSlash =
+    rf.filePathRelativeProject.replaceAll(`\\`, `/`);
+  rf.folderPathRelativeProject = path.dirname(rf.filePathRelativeProject);
+  rf.folderPathRelativeProjectSlash = rf.folderPathRelative.replaceAll(`\\`, `/`);
 
   rf.projectFolderPath = workspaceFolder
     ? driveLetterUpper(workspaceFolder.uri.fsPath)

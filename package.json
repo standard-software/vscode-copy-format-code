@@ -94,7 +94,7 @@
                 {
                   "label": "Output Header",
                   "format": {
-                    "header": "%FilePath%\n%FilePathSlash%\n%FileName%\n%FileExt%\n%FileNameWithoutExt%\n%FolderPath%\n%FolderPathSlash%\n%FolderName%\n%FilePathRelative%\n%FilePathRelativeSlash%\n%ProjectFolderPath%\n%ProjectFolderPathSlash%\n%ProjectName%\n%LineNumberStart%\n%LineNumberStartZeroPad%\n%LineNumberEnd%\n",
+                    "header": "\\%FilePath\\%:  %FilePath%\n\\%FilePathSlash\\%:  %FilePathSlash%\n\\%FileName\\%:  %FileName%\n\\%FileNameWithoutExt\\%:  %FileNameWithoutExt%\n\\%FileExt\\%:  %FileExt%\n\n\\%FolderPath\\%:  %FolderPath%\n\\%FolderPathSlash\\%:  %FolderPathSlash%\n\\%FolderName\\%:  %FolderName%\n\n\\%FilePathRelative\\%:  %FilePathRelative%\n\\%FilePathRelativeSlash\\%:  %FilePathRelativeSlash%\n\\%FolderPathRelative\\%:  %FolderPathRelative%\n\\%FolderPathRelativeSlash\\%:  %FolderPathRelativeSlash%\n\n\\%FilePathRelativeProject\\%:  %FilePathRelativeProject%\n\\%FilePathRelativeProjectSlash\\%:  %FilePathRelativeProjectSlash%\n\\%FolderPathRelativeProject\\%:  %FolderPathRelativeProject%\n\\%FolderPathRelativeProjectSlash\\%:  %FolderPathRelativeProjectSlash%\n\n\\%ProjectFolderPath\\%:  %ProjectFolderPath%\n\\%ProjectFolderPathSlash\\%:  %ProjectFolderPathSlash%\n\\%ProjectName\\%:  %ProjectName%\n\n\\%LineNumberStart\\%:  %LineNumberStart%\n\\%LineNumberStartZeroPad\\%:  %LineNumberStartZeroPad%\n\\%LineNumberEnd\\%:  %LineNumberEnd%\n",
                     "body": "%NumberFile%: %Line%",
                     "option": {
                       "lineNumber": true
