@@ -56,6 +56,10 @@
           "default": [
             {
               "label": "Markdown",
+              "separator": true
+            },
+            {
+              "label": "Markdown",
               "format": {
                 "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                 "body": "%Line%",
@@ -71,6 +75,10 @@
                 "bodySeparator": ":",
                 "footer": "```"
               }
+            },
+            {
+              "label": "Text",
+              "separator": true
             },
             {
               "label": "Header RelativePath",
@@ -89,7 +97,12 @@
               }
             },
             {
+              "label": "Menu",
+              "separator": true
+            },
+            {
               "label": "Test",
+              "visible": true,
               "items": [
                 {
                   "label": "Output Header",
@@ -146,6 +159,10 @@
                   "items": [
                     {
                       "label": "Markdown",
+                      "separator": true
+                    },
+                    {
+                      "label": "Markdown",
                       "format": {
                         "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                         "body": "%SkipBlankLine%%Line%",
@@ -161,6 +178,10 @@
                         "bodySeparator": ":",
                         "footer": "```"
                       }
+                    },
+                    {
+                      "label": "Text",
+                      "separator": true
                     },
                     {
                       "label": "Header RelativePath",
@@ -185,6 +206,10 @@
                   "items": [
                     {
                       "label": "Markdown",
+                      "separator": true
+                    },
+                    {
+                      "label": "Markdown",
                       "format": {
                         "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                         "body": "%LineTrimFirst%",
@@ -200,6 +225,10 @@
                         "bodySeparator": ":",
                         "footer": "```"
                       }
+                    },
+                    {
+                      "label": "Text",
+                      "separator": true
                     },
                     {
                       "label": "Header RelativePath",
@@ -224,6 +253,10 @@
                   "items": [
                     {
                       "label": "Markdown",
+                      "separator": true
+                    },
+                    {
+                      "label": "Markdown",
                       "format": {
                         "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                         "body": "%LineCutMinIndent%",
@@ -239,6 +272,10 @@
                         "bodySeparator": ":",
                         "footer": "```"
                       }
+                    },
+                    {
+                      "label": "Text",
+                      "separator": true
                     },
                     {
                       "label": "Header RelativePath",
@@ -263,6 +300,10 @@
                   "items": [
                     {
                       "label": "Markdown",
+                      "separator": true
+                    },
+                    {
+                      "label": "Markdown",
                       "format": {
                         "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                         "body": "%SkipBlankLine%%LineCutMinIndent%",
@@ -278,6 +319,10 @@
                         "bodySeparator": ":",
                         "footer": "```"
                       }
+                    },
+                    {
+                      "label": "Text",
+                      "separator": true
                     },
                     {
                       "label": "Header RelativePath",

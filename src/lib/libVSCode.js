@@ -1,9 +1,7 @@
 const vscode = require(`vscode`);
 
 const {
-  _trimFirst,
-  _trim,
-  _subLength,
+  isUndefined,
 } = require(`../parts/parts.js`);
 
 // VSCode System
@@ -26,21 +24,22 @@ const getEditor = () => {
 };
 
 const commandQuickPick = (commands, placeHolder) => {
-  // const commands = commandsArray.map(c => ({label:c[0], description:c[1], func:c[2]}));
-  // command = [
+  // commands = [
   //   {label:``, description:``, func: ()=>{}},
   //   {label:``, kind:vscode.QuickPickItemKind.Separator}
   // ]
   vscode.window.showQuickPick(
-
-    commands.map(({ func, ...command }) => (command)),
+    commands.map((command, index) => {
+      return { ...command, index };
+    }),
     {
       canPickMany: false,
       placeHolder
     }
   ).then((item) => {
     if (!item) { return; }
-    commands.find(({ label }) => label === item.label).func();
+    if (item.kind === vscode.QuickPickItemKind.Separator) { return; }
+    commands[item.index].func();
   });
 };
 

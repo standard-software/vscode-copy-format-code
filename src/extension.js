@@ -11,6 +11,7 @@ const {
   _excludeFirst,
   _subLength,
   _subFirstDelimLast,
+  _subLastDelimLast,
   _trim,
   _trimFirst,
   _trimLast,
@@ -309,8 +310,14 @@ function activate(context) {
   const selectFormat = (placeHolder, formats) => {
     const commands = [];
 
-    for (const [index, formatData] of formats.entries()) {
-      if (formatData.format) {
+    for (const formatData of formats) {
+      if (formatData.visible === false) { continue; }
+      if (formatData.separator === true) {
+        commands.push({
+          label: formatData.label,
+          kind: vscode.QuickPickItemKind.Separator,
+        });
+      } else if (formatData.format) {
         commands.push({
           label: formatData.label,
           description: ``,
@@ -324,7 +331,7 @@ function activate(context) {
           description: `▸`,
           func: () => {
             selectFormat(
-              `Copy Format Code : Select Format : ${formatData.label}`,
+              `${_subLastDelimLast(placeHolder, ` : `)} : ${formatData.label}`,
               formatData.items
             );
           }
