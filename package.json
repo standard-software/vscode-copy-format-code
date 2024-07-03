@@ -36,7 +36,7 @@
   "scripts": {
     "lint": "npx eslint",
     "lintfix": "npx eslint --fix",
-    "pack": "npx -y vsce package && code --install-extension vscode-copy-format-code-0.1.1.vsix",
+    "pack": "npx -y vsce package && code --install-extension vscode-copy-format-code-0.2.0.vsix",
     "": ""
   },
   "devDependencies": {
@@ -66,7 +66,7 @@
               "label": "Header RelativePath Body LineNumber",
               "format": {
                 "header": "%ProjectName%/%FilePathRelativeSlash%",
-                "body": "%LineNumberFile%: %Line%",
+                "body": "%NumberFile%: %Line%",
                 "option": {
                   "lineNumber": true
                 }
@@ -75,7 +75,7 @@
             {
               "label": "Markdown",
               "format": {
-                "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash% : %LineNumberStart%-%LineNumberEnd%",
+                "header": "```%FileExt%\n// %ProjectName%/%FilePathRelativeSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                 "body": "%Line%",
                 "footer": "```"
               }
@@ -83,8 +83,8 @@
             {
               "label": "Markdown LineNumber",
               "format": {
-                "header": "```%FileExt%¥n// %ProjectName%/%FilePathRelativeSlash% : %LineNumberStart%-%LineNumberEnd%",
-                "body": "%LineNumberFile%: %Line%",
+                "header": "```%FileExt%\n// %ProjectName%/%FilePathRelativeSlash%/\n// %FileName%",
+                "body": "%NumberFile%: %Line%",
                 "footer": "```",
                 "option": {
                   "lineNumber": true

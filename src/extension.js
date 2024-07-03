@@ -140,6 +140,7 @@ const formatBody = (editor, bodyFormat, bodySeparator) => {
   const minIndent = getMinIndent(editor);
 
   const skipBlankLine = bodyFormat.includes(`%SkipBlankLine%`);
+  bodyFormat = bodyFormat.replaceAll(`%SkipBlankLine%`, ``);
 
   let maxLineLength = 0;
   const results = [];
@@ -170,8 +171,6 @@ const formatBody = (editor, bodyFormat, bodySeparator) => {
       rf.lineTrimLast = _trimLast(rf.line);
       rf.lineTrimLast = _trimLast(rf.line);
       rf.spaceMinIndent = ` `.repeat(minIndent);
-      // rf.spacePadEnd = ``;
-      rf.skipBlankLine = ``;
 
       rf[`¥r¥n`] = `\n`;
       rf[`\n`] = lineBreak;
@@ -179,11 +178,14 @@ const formatBody = (editor, bodyFormat, bodySeparator) => {
       rf[`\\%`] = `%`;    // \% -> %
       rf[`\\\\`] = `\\`;  // \\ -> \
 
+      // rf.aaa = `ABC`
+      // replaceAll(`Aaa`, `ABC`)
       for (const [key, newPattern] of Object.entries(replaceTable)) {
         const oldPattern = `%${key[0].toUpperCase() + key.slice(1)}%`;
         line = line.replaceAll(oldPattern, newPattern);
       }
       result.push(line + lineBreak);
+
       maxLineLength = Math.max(
         maxLineLength, line.length - `%SpacePadEnd%`.length
       );
@@ -194,7 +196,8 @@ const formatBody = (editor, bodyFormat, bodySeparator) => {
   if (bodyFormat.includes(`%SpacePadEnd%`)) {
     for (let result of results) {
       for (let [i, line] of result.entries()) {
-        line = line.replaceAll(`%SpacePadEnd%`,
+        line = line.replaceAll(
+          `%SpacePadEnd%`,
           ` `.repeat(
             maxLineLength -  (line.length - `%SpacePadEnd%`.length - lineBreak.length)
           )
