@@ -2,8 +2,8 @@
 
 Header/Footer
 
-  %FilePathFull%
-  %FilePathFullSlash%
+  %FilePath%
+  %FilePathSlash%
   %FileName%
   %FileExt%
   %FileNameWithoutExt%
@@ -12,6 +12,8 @@ Header/Footer
   %FolderName%
   %FilePathRelative%
   %FilePathRelativeSlash%
+  %FolderPathRelative%
+  %FolderPathRelativeSlash%
   %ProjectFolderPath%
   %ProjectFolderPathSlash%
   %ProjectName%

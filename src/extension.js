@@ -54,19 +54,18 @@ const formatHeaderFooter = (editor, format) => {
   const lineBreak = getLineBreak(editor);
   assert(!isUndefined(lineBreak));
 
-  const startLine = __min(editor.selections.map(s=>s.start.line)) + 1;
-  const endLine = __max(editor.selections.map(s=>s.end.line)) + 1;
+  const { startLine, endLine } = getLineNumber(editor);
 
   const replaceTable = {};
   const rf = replaceTable;
-  rf.filePathFull = driveLetterUpper(editor.document.uri.fsPath);
-  rf.filePathFullSlash =
-    rf.filePathFull.replaceAll(`\\`, `/`);
-  rf.fileName = path.basename(rf.filePathFull);
-  rf.fileExt = _excludeFirst(path.extname(rf.filePathFull), `.`);
+  rf.filePath = driveLetterUpper(editor.document.uri.fsPath);
+  rf.filePathSlash =
+    rf.filePath.replaceAll(`\\`, `/`);
+  rf.fileName = path.basename(rf.filePath);
+  rf.fileExt = _excludeFirst(path.extname(rf.filePath), `.`);
   rf.fileNameWithoutExt = _subFirstDelimFirst(rf.fileName, `.`);
-  rf.folderPath = path.dirname(rf.filePathFull);
-  rf.folderPathSlash = path.dirname(rf.filePathFullSlash);
+  rf.folderPath = path.dirname(rf.filePath);
+  rf.folderPathSlash = rf.folderPath.replaceAll(`\\`, `/`);
   rf.folderName = path.basename(rf.folderPath);
 
   let workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
@@ -75,12 +74,16 @@ const formatHeaderFooter = (editor, format) => {
       workspaceFolder.uri.fsPath,
       editor.document.uri.fsPath
     )
-    : rf.filePathFull;
+    : rf.filePath;
   rf.filePathRelativeSlash =
     rf.filePathRelative.replaceAll(`\\`, `/`);
+
+  rf.folderPathRelative = path.dirname(rf.filePathRelative);
+  rf.folderPathRelativeSlash = rf.folderPathRelative.replaceAll(`\\`, `/`);
+
   rf.projectFolderPath = workspaceFolder
     ? driveLetterUpper(workspaceFolder.uri.fsPath)
-    : path.dirname(rf.filePathFull);
+    : path.dirname(rf.filePath);
   rf.projectFolderPathSlash =
     rf.projectFolderPath.replaceAll(`\\`, `/`);
   rf.projectName =
@@ -127,12 +130,34 @@ const getMinIndent = (editor) => {
   return minIndent;
 };
 
+const getLineNumber = (editor) => {
+  let startLine = Infinity;
+  let endLine = -Infinity;
+  for (const { start, end } of editor.selections) {
+    for (let i = start.line; i <= end.line; i += 1) {
+      if (
+        start.line !== end.line &&
+        i === end.line &&
+        end.character === 0
+      ) {
+        break;
+      }
+      endLine = Math.max(endLine, i);
+    }
+    startLine = Math.min(startLine, start.line);
+  }
+  assert(startLine !== Infinity);
+  assert(endLine !== -Infinity);
+  startLine += 1;
+  endLine += 1;
+  return { startLine, endLine };
+};
+
 const formatBody = (editor, bodyFormat, bodySeparator) => {
   if (isUndefined(bodyFormat) || bodyFormat === ``) { return ``; }
 
   const lineBreak = getLineBreak(editor);
-  const startLine = __min(editor.selections.map(s=>s.start.line)) + 1;
-  const endLine = __max(editor.selections.map(s=>s.end.line)) + 1;
+  const { startLine, endLine } = getLineNumber(editor);
 
   const numberDigitFile = endLine.toString().length;
   const numberDigitStart1 = (endLine - startLine + 1).toString().length;
@@ -155,33 +180,45 @@ const formatBody = (editor, bodyFormat, bodySeparator) => {
         break;
       }
 
+      const lineText = editor.document.lineAt(i).text;
+      if (skipBlankLine && _trim(lineText) === ``) { continue; }
+
+      let replaceTable = [];
+      if (lineBreak === `\r\n`) {
+        replaceTable = [
+          ...replaceTable,
+          [`\r\n`, `\n`],
+          [`\n`, lineBreak],
+        ];
+      }
+      replaceTable = [
+        ...replaceTable,
+        [
+          `%NumberStart1%`,
+          `${i - start.line + 1}`.padStart(numberDigitStart1, `0`)
+        ],
+        [
+          `%NumberFile%`,
+          `${i + 1}`.padStart(numberDigitFile, `0`)
+        ],
+
+        [`%Line%`,              lineText],
+        [`%LineCutMinIndent%`,  _subLength(lineText, minIndent)],
+        [`%LineTrim%`,          _trim(lineText)],
+        [`%LineTrimFirst%`,     _trimFirst(lineText)],
+        [`%LineTrimLast%`,      _trimLast(lineText)],
+        [`%LineTrimLast%`,      _trimLast(lineText)],
+        [`%SpaceMinIndent%`,    ` `.repeat(minIndent)],
+
+        [`\\%`, `%`],     // \% -> %
+        [`\\\\`, `\\`],    // \\ -> \
+      ];
+      // %Line%     -> Change line text
+      // \%Line\%   -> `%Line%`
+      // \\%Line\\% -> `\%Line\%`
+
       let line = bodyFormat;
-
-      const replaceTable = {};
-      const rf = replaceTable;
-      const _numberStart1 = (i - start.line + 1);
-      rf.numberStart1 = _numberStart1.toString().padStart(numberDigitStart1, `0`);
-      rf.numberFile = (i + 1).toString().padStart(numberDigitFile, `0`);
-
-      rf.line = editor.document.lineAt(i).text;
-      if (skipBlankLine && _trim(rf.line) === ``) { continue; }
-      rf.lineCutMinIndent = _subLength(rf.line, minIndent);
-      rf.lineTrim = _trim(rf.line);
-      rf.lineTrimFirst = _trimFirst(rf.line);
-      rf.lineTrimLast = _trimLast(rf.line);
-      rf.lineTrimLast = _trimLast(rf.line);
-      rf.spaceMinIndent = ` `.repeat(minIndent);
-
-      rf[`¥r¥n`] = `\n`;
-      rf[`\n`] = lineBreak;
-
-      rf[`\\%`] = `%`;    // \% -> %
-      rf[`\\\\`] = `\\`;  // \\ -> \
-
-      // rf.aaa = `ABC`
-      // replaceAll(`Aaa`, `ABC`)
-      for (const [key, newPattern] of Object.entries(replaceTable)) {
-        const oldPattern = `%${key[0].toUpperCase() + key.slice(1)}%`;
+      for (const [oldPattern, newPattern] of replaceTable) {
         line = line.replaceAll(oldPattern, newPattern);
       }
       result.push(line + lineBreak);

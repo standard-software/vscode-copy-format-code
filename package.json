@@ -55,40 +55,37 @@
           "type": "array",
           "default": [
             {
-              "label": "Header RelativePath",
-              "format": {
-                "header": "%ProjectName%/%FilePathRelativeSlash%",
-                "body": "%Line%",
-                "footer": ""
-              }
-            },
-            {
-              "label": "Header RelativePath Body LineNumber",
-              "format": {
-                "header": "%ProjectName%/%FilePathRelativeSlash%",
-                "body": "%NumberFile%: %Line%",
-                "option": {
-                  "lineNumber": true
-                }
-              }
-            },
-            {
               "label": "Markdown",
               "format": {
-                "header": "```%FileExt%\n// %ProjectName%/%FilePathRelativeSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
+                "header": "```%FileExt%\n// %ProjectName%/%FolderPathRelativeSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                 "body": "%Line%",
+                "bodySeparator": "",
                 "footer": "```"
               }
             },
             {
               "label": "Markdown LineNumber",
               "format": {
-                "header": "```%FileExt%\n// %ProjectName%/%FilePathRelativeSlash%/\n// %FileName%",
+                "header": "```%FileExt%\n// %ProjectName%/%FolderPathRelativeSlash%/\n// %FileName%",
                 "body": "%NumberFile%: %Line%",
-                "footer": "```",
-                "option": {
-                  "lineNumber": true
-                }
+                "bodySeparator": ":",
+                "footer": "```"
+              }
+            },
+            {
+              "label": "Header RelativePath",
+              "format": {
+                "header": "%ProjectName%/%FilePathRelativeSlash%",
+                "body": "%Line%",
+                "bodySeparator": ""
+              }
+            },
+            {
+              "label": "Header RelativePath LineNumber",
+              "format": {
+                "header": "%ProjectName%/%FilePathRelativeSlash%",
+                "body": "%NumberFile%: %Line%",
+                "bodySeparator": ":"
               }
             },
             {
@@ -97,8 +94,8 @@
                 {
                   "label": "Output Header",
                   "format": {
-                    "header": "%FilePathFull%\n%FilePathFullSlash%\n%FileName%\n%FileExt%\n%FileNameWithoutExt%\n%FolderPath%\n%FolderPathSlash%\n%FolderName%\n%FilePathRelative%\n%FilePathRelativeSlash%\n%ProjectFolderPath%\n%ProjectFolderPathSlash%\n%ProjectName%\n%LineNumberStart%\n%LineNumberStartZeroPad%\n%LineNumberEnd%\n",
-                    "body": "%LineNumberFile%: %Line%",
+                    "header": "%FilePath%\n%FilePathSlash%\n%FileName%\n%FileExt%\n%FileNameWithoutExt%\n%FolderPath%\n%FolderPathSlash%\n%FolderName%\n%FilePathRelative%\n%FilePathRelativeSlash%\n%ProjectFolderPath%\n%ProjectFolderPathSlash%\n%ProjectName%\n%LineNumberStart%\n%LineNumberStartZeroPad%\n%LineNumberEnd%\n",
+                    "body": "%NumberFile%: %Line%",
                     "option": {
                       "lineNumber": true
                     }
