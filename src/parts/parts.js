@@ -25,6 +25,7 @@ const { _subLast } = require(`./string/_subLast.js`);
 const { _insert } = require(`./string/_insert.js`);
 const { _includeCount } = require(`./string/_includeCount.js`);
 const { _subFirstDelimFirst } = require(`./string/_subFirstDelimFirst.js`);
+const { _subFirstDelimLast } = require(`./string/_subFirstDelimLast.js`);
 const { _subLastDelimFirst } = require(`./string/_subLastDelimFirst.js`);
 const { _paddingFirst } = require(`./string/_paddingFirst.js`);
 const { _paddingLast } = require(`./string/_paddingLast.js`);
@@ -59,7 +60,8 @@ module.exports = {
   _insert,
   _includeCount,
   _stringToIntegerDefault,
-  _subFirstDelimFirst, _subLastDelimFirst,
+  _subFirstDelimFirst, _subFirstDelimLast,
+  _subLastDelimFirst,
   _paddingFirst, _paddingLast,
 
   __min, __max,

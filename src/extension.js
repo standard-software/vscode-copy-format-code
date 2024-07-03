@@ -8,10 +8,9 @@ const {
 
 const {
   isUndefined,
-  __min, __max,
   _excludeFirst,
   _subLength,
-  _subFirstDelimFirst,
+  _subFirstDelimLast,
   _trim,
   _trimFirst,
   _trimLast,
@@ -56,68 +55,95 @@ const formatHeaderFooter = (editor, format) => {
 
   const { startLine, endLine } = getLineNumber(editor);
 
-  const replaceTable = {};
-  const rf = replaceTable;
-  rf.filePath = driveLetterUpper(editor.document.uri.fsPath);
-  rf.filePathSlash =
-    rf.filePath.replaceAll(`\\`, `/`);
-  rf.fileName = path.basename(rf.filePath);
-  rf.fileExt = _excludeFirst(path.extname(rf.filePath), `.`);
-  rf.fileNameWithoutExt = _subFirstDelimFirst(rf.fileName, `.`);
-  rf.folderPath = path.dirname(rf.filePath);
-  rf.folderPathSlash = rf.folderPath.replaceAll(`\\`, `/`);
-  rf.folderName = path.basename(rf.folderPath);
-
-  let workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
-  rf.filePathRelative = workspaceFolder
-    ? path.relative(
-      workspaceFolder.uri.fsPath,
-      editor.document.uri.fsPath
-    )
-    : rf.filePath;
-  rf.filePathRelativeSlash =
-    rf.filePathRelative.replaceAll(`\\`, `/`);
-  rf.folderPathRelative = path.dirname(rf.filePathRelative);
-  rf.folderPathRelativeSlash = rf.folderPathRelative.replaceAll(`\\`, `/`);
-
-  rf.filePathRelativeProject = workspaceFolder
-    ? path.relative(
-      path.dirname(workspaceFolder.uri.fsPath),
-      editor.document.uri.fsPath
-    )
-    : rf.filePath;
-  rf.filePathRelativeProjectSlash =
-    rf.filePathRelativeProject.replaceAll(`\\`, `/`);
-  rf.folderPathRelativeProject = path.dirname(rf.filePathRelativeProject);
-  rf.folderPathRelativeProjectSlash = rf.folderPathRelative.replaceAll(`\\`, `/`);
-
-  rf.projectFolderPath = workspaceFolder
-    ? driveLetterUpper(workspaceFolder.uri.fsPath)
-    : path.dirname(rf.filePath);
-  rf.projectFolderPathSlash =
-    rf.projectFolderPath.replaceAll(`\\`, `/`);
-  rf.projectName =
-    path.basename(rf.projectFolderPath);
-
-  rf.lineNumberStart = startLine;
-  rf.lineNumberStartZeroPad =
-    startLine.toString().padStart(endLine.toString().length, `0`);
-  rf.lineNumberEnd = endLine;
-
-  rf[`¥r¥n`] = `\n`;
-  rf[`\n`] = lineBreak;
-
-  rf[`\\%`] = `%`;    // \% -> %
-  rf[`\\\\`] = `\\`;  // \\ -> \
-
-  for (const [key, newPattern] of Object.entries(replaceTable)) {
-    const oldPattern = `%${key[0].toUpperCase() + key.slice(1)}%`;
-    format = format.replaceAll(oldPattern, newPattern);
+  let replaceTable = [];
+  if (lineBreak === `\r\n`) {
+    replaceTable = [
+      ...replaceTable,
+      [`\r\n`, `\n`],
+      [`\n`, lineBreak],
+    ];
   }
 
-  format += lineBreak;
+  const filePath = driveLetterUpper(editor.document.uri.fsPath);
+  const fileName = path.basename(filePath);
+  const folderPath = path.dirname(filePath);
+  replaceTable = [
+    ...replaceTable,
+    [`%FilePath%`, filePath],
+    [`%FilePathSlash%`, filePath.replaceAll(`\\`, `/`)],
+    [`%FileName%`, fileName],
+    [`%FileExt%`, _excludeFirst(path.extname(filePath), `.`)],
+    [`%FileNameWithoutExt%`, _subFirstDelimLast(fileName, `.`)],
 
-  return format;
+    [`%FolderPath%`, folderPath],
+    [`%FolderPathSlash%`, folderPath.replaceAll(`\\`, `/`)],
+    [`%FolderName%`, path.basename(folderPath)],
+  ];
+
+  let workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+  const filePathRelative =
+    workspaceFolder
+      ? path.relative(
+        workspaceFolder.uri.fsPath,
+        editor.document.uri.fsPath
+      )
+      : filePath;
+  const folderPathRelative = path.dirname(filePathRelative);
+  replaceTable = [
+    ...replaceTable,
+    [`%FilePathRelative%`,        filePathRelative],
+    [`%FilePathRelativeSlash%`,   filePathRelative.replaceAll(`\\`, `/`)],
+    [`%FolderPathRelative%`,      folderPathRelative],
+    [`%FolderPathRelativeSlash%`, folderPathRelative.replaceAll(`\\`, `/`)],
+  ];
+
+  const filePathRelativeProject =
+    workspaceFolder
+      ? path.relative(
+        path.dirname(workspaceFolder.uri.fsPath),
+        editor.document.uri.fsPath
+      )
+      : filePath;
+  const folderPathRelativeProject = path.dirname(filePathRelativeProject);
+  replaceTable = [
+    ...replaceTable,
+    [`%FilePathRelativeProject%`,        filePathRelativeProject],
+    [`%FilePathRelativeProjectSlash%`,   filePathRelativeProject.replaceAll(`\\`, `/`)],
+    [`%FolderPathRelativeProject%`,      folderPathRelativeProject],
+    [`%FolderPathRelativeProjectSlash%`, folderPathRelativeProject.replaceAll(`\\`, `/`)],
+  ];
+
+  projectFolderPath = workspaceFolder
+    ? driveLetterUpper(workspaceFolder.uri.fsPath)
+    : path.dirname(filePath);
+  replaceTable = [
+    ...replaceTable,
+    [`%ProjectFolderPath%`,       projectFolderPath],
+    [`%ProjectFolderPathSlash%`,  projectFolderPath.replaceAll(`\\`, `/`)],
+    [`%ProjectName%`,             path.basename(projectFolderPath)],
+  ];
+
+  const startLineStr = startLine.toString();
+  const endLineStr = endLine.toString();
+  replaceTable = [
+    ...replaceTable,
+    [`%LineNumberStart%`,         startLineStr],
+    [`%LineNumberStartZeroPad%`,  startLineStr.padStart(endLineStr.length, `0`)],
+    [`%LineNumberEnd%`,           endLineStr],
+  ];
+
+  replaceTable = [
+    ...replaceTable,
+    [`\\%`, `%`],     // \% -> %
+    [`\\\\`, `\\`],    // \\ -> \
+  ];
+
+  let line = format;
+  for (const [oldPattern, newPattern] of replaceTable) {
+    line = line.replaceAll(oldPattern, newPattern);
+  }
+  line += lineBreak;
+  return line;
 };
 
 const getIndent = (line) => {
@@ -219,7 +245,10 @@ const formatBody = (editor, bodyFormat, bodySeparator) => {
         [`%LineTrimLast%`,      _trimLast(lineText)],
         [`%LineTrimLast%`,      _trimLast(lineText)],
         [`%SpaceMinIndent%`,    ` `.repeat(minIndent)],
+      ];
 
+      replaceTable = [
+        ...replaceTable,
         [`\\%`, `%`],     // \% -> %
         [`\\\\`, `\\`],    // \\ -> \
       ];
