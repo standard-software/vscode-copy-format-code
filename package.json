@@ -89,7 +89,7 @@
               }
             },
             {
-              "label": "Menu",
+              "label": "SubMenu",
               "separator": true
             },
             {
@@ -147,12 +147,12 @@
               "label": "Delete Indent and BlankLine",
               "items": [
                 {
+                  "label": "SubMenu",
+                  "separator": true
+                },
+                {
                   "label": "Delete BlankLine",
                   "items": [
-                    {
-                      "label": "Markdown",
-                      "separator": true
-                    },
                     {
                       "label": "Markdown",
                       "format": {
@@ -170,10 +170,6 @@
                         "bodySeparator": ":",
                         "footer": "```"
                       }
-                    },
-                    {
-                      "label": "Text",
-                      "separator": true
                     },
                     {
                       "label": "Header RelativePath",
@@ -198,10 +194,6 @@
                   "items": [
                     {
                       "label": "Markdown",
-                      "separator": true
-                    },
-                    {
-                      "label": "Markdown",
                       "format": {
                         "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                         "body": "%LineTrimFirst%",
@@ -217,10 +209,6 @@
                         "bodySeparator": ":",
                         "footer": "```"
                       }
-                    },
-                    {
-                      "label": "Text",
-                      "separator": true
                     },
                     {
                       "label": "Header RelativePath",
@@ -245,10 +233,6 @@
                   "items": [
                     {
                       "label": "Markdown",
-                      "separator": true
-                    },
-                    {
-                      "label": "Markdown",
                       "format": {
                         "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                         "body": "%LineCutMinIndent%",
@@ -264,10 +248,6 @@
                         "bodySeparator": ":",
                         "footer": "```"
                       }
-                    },
-                    {
-                      "label": "Text",
-                      "separator": true
                     },
                     {
                       "label": "Header RelativePath",
@@ -292,10 +272,6 @@
                   "items": [
                     {
                       "label": "Markdown",
-                      "separator": true
-                    },
-                    {
-                      "label": "Markdown",
                       "format": {
                         "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %LineNumberStart%-%LineNumberEnd%",
                         "body": "%SkipBlankLine%%LineCutMinIndent%",
@@ -311,10 +287,6 @@
                         "bodySeparator": ":",
                         "footer": "```"
                       }
-                    },
-                    {
-                      "label": "Text",
-                      "separator": true
                     },
                     {
                       "label": "Header RelativePath",
