@@ -206,7 +206,13 @@ const formatBody = (editor, bodyFormat, bodySeparator) => {
 
   let maxLineLength = 0;
   const results = [];
-  for (const [selectionIndex, { start, end }] of editor.selections.entries()) {
+  const selections = [...editor.selections];
+  selections.sort((a, b) => {
+    if (a.start.line < b.start.line) { return -1; }
+    if (a.start.line > b.start.line) { return 1; }
+    return 0;
+  });
+  for (const { start, end } of selections) {
     let result = [];
     for (let i = start.line; i <= end.line; i += 1) {
       if (
