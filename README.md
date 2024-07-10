@@ -26,9 +26,9 @@ Header/Footer
   %ProjectFolderPathSlash%
   %ProjectName%
 
-  %LineNumberStart%
-  %LineNumberStartZeroPad%
-  %LineNumberEnd%
+  %NumberStart%
+  %NumberStartZeroPad%
+  %NumberEnd%
 
 Body
   %NumberStart1%

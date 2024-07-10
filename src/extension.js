@@ -128,9 +128,9 @@ const formatHeaderFooter = (editor, format) => {
   const endLineStr = endLine.toString();
   replaceTable = [
     ...replaceTable,
-    [`%LineNumberStart%`,         startLineStr],
-    [`%LineNumberStartZeroPad%`,  startLineStr.padStart(endLineStr.length, `0`)],
-    [`%LineNumberEnd%`,           endLineStr],
+    [`%NumberStart%`,         startLineStr],
+    [`%NumberStartZeroPad%`,  startLineStr.padStart(endLineStr.length, `0`)],
+    [`%NumberEnd%`,           endLineStr],
   ];
 
   replaceTable = [
