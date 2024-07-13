@@ -155,6 +155,14 @@ const getMinIndent = (editor) => {
   let minIndent = Infinity;
   for (const { start, end } of editor.selections) {
     for (let i = start.line; i <= end.line; i += 1) {
+      if (
+        start.line !== end.line &&
+        i === end.line &&
+        end.character === 0
+      ) {
+        break;
+      }
+
       const lineText = editor.document.lineAt(i).text;
       if (_trim(lineText) === ``) { continue; }
       const indent = getIndent(lineText);
@@ -163,6 +171,7 @@ const getMinIndent = (editor) => {
       }
     }
   }
+
   if (minIndent === Infinity) { minIndent = 0; }
   return minIndent;
 };
