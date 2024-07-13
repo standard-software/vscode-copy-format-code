@@ -24,9 +24,9 @@ const assert = (condition, message) => {
 };
 
 
-const getCopyFormatDataArray = () => {
+const getFormatMenuItems = () => {
   const formatData = vscode.workspace
-    .getConfiguration(`CopyFormatCode`).get(`CopyFormat`);
+    .getConfiguration(`CopyFormatCode`).get(`SelectFormatMenu`);
   return formatData;
 };
 
@@ -322,10 +322,10 @@ const copyCode = (format) => {
 
 function activate(context) {
 
-  const selectFormat = (placeHolder, formats) => {
+  const selectFormat = (placeHolder, formatMenuItems) => {
     const commands = [];
 
-    for (const formatData of formats) {
+    for (const formatData of formatMenuItems) {
       if (formatData.visible === false) { continue; }
       if (formatData.separator === true) {
         commands.push({
@@ -365,7 +365,7 @@ function activate(context) {
     () => {
       selectFormat(
         `Copy Format Code : Select Format`,
-        getCopyFormatDataArray()
+        getFormatMenuItems()
       );
     }
   );

@@ -51,7 +51,7 @@
       "type": "object",
       "title": "CopyFormatCode",
       "properties": {
-        "CopyFormatCode.CopyFormat": {
+        "CopyFormatCode.SelectFormatMenu": {
           "type": "array",
           "default": [
             {

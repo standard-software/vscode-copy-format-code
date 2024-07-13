@@ -5,7 +5,7 @@ Default Setting
 settings.json
 ```json
 {
-  "CopyFormatCode.CopyFormat": [
+  "CopyFormatCode.SelectFormatMenu": [
     {
       "label": "Markdown",
       "items": [
