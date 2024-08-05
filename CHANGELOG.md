@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.1.1] - 2024/08/06 Tue
+- update README
+  - default key bind
+
 ## [1.1.0] - 2024/08/06 Tue
 - Add Copy Default Format
 

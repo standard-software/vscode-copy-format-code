@@ -39,6 +39,11 @@ Japanese / English
 [ Copy Format Code : Select Format... ]
 ```
 
+| Command               | Default Key Windows     | Default Key Mac         |
+|-                      |-                        | -                       |
+| Copy : Default Format | Alt + Ctrl + c          | Opt + Ctrl + c          |
+
+
 ### [ Copy Format Code : Copy : Default Format ]
 
 If you specify multiple selections and select this command, copies are made to the clipboard according to the specification [Markdown LineNumber : Cut MinIndent].
