@@ -1,4 +1,6 @@
 # Change Log
+## [1.0.0] - 2024/07/13 Sat
+- Release
 
 ## [0.2.0] - 2024/06/23 Sun
 - Refactoring
