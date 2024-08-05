@@ -23,10 +23,15 @@ const assert = (condition, message) => {
   }
 };
 
-
-const getFormatMenuItems = () => {
+const getConfigFormatMenuItems = () => {
   const formatData = vscode.workspace
     .getConfiguration(`CopyFormatCode`).get(`SelectFormatMenu`);
+  return formatData;
+};
+
+const getConfigDefaultFormat = () => {
+  const formatData = vscode.workspace
+    .getConfiguration(`CopyFormatCode`).get(`CopyDefaultFormat`);
   return formatData;
 };
 
@@ -39,7 +44,6 @@ const getLineBreak = (editor) => {
   }
   assert(false, `getLineBreak:eol${eol}`);
 };
-
 
 const driveLetterUpper = path => {
   if (path[1] === `:`) {
@@ -365,8 +369,16 @@ function activate(context) {
     () => {
       selectFormat(
         `Copy Format Code : Select Format`,
-        getFormatMenuItems()
+        getConfigFormatMenuItems()
       );
+    }
+  );
+
+  registerCommand(context,
+    `vscode-copy-format-code.CopyDefaultFormat`,
+    () => {
+      const formatData = getConfigDefaultFormat();
+      copyCode(formatData.format);
     }
   );
 

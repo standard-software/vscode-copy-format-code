@@ -51,6 +51,17 @@
       "type": "object",
       "title": "CopyFormatCode",
       "properties": {
+        "CopyFormatCode.CopyDefaultFormat": {
+          "default": {
+            "label": "Markdown LineNumber : Cut MinIndent",
+            "format": {
+              "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
+              "body": "%NumberFile%: %LineCutMinIndent%",
+              "bodySeparator": ":",
+              "footer": "```"
+            }
+          }
+        },
         "CopyFormatCode.SelectFormatMenu": {
           "type": "array",
           "default": [
@@ -412,8 +423,18 @@
       {
         "command": "vscode-copy-format-code.SelectFormat",
         "title": "Copy Format Code : Select Format..."
+      },
+      {
+        "command": "vscode-copy-format-code.CopyDefaultFormat",
+        "title": "Copy Format Code : Copy : Default Format"
       }
     ],
-    "keybindings": []
+    "keybindings": [
+      {
+        "command": "vscode-copy-format-code.CopyDefaultFormat",
+        "key": "alt+ctrl+c",
+        "when": "editorTextFocus"
+      }
+    ]
   }
 }

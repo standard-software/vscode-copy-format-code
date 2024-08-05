@@ -1,4 +1,8 @@
 # Change Log
+
+## [1.1.0] - 2024/08/06 Tue
+- Add Copy Default Format
+
 ## [1.0.0] - 2024/07/13 Sat
 - Release
 

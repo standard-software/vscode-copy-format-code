@@ -32,14 +32,23 @@ Japanese / English
 
 ## Usage
 
-If you specify multiple selections and select the following command, copies will be made according to the specified format.
+### Command
 
 ```
+[ Copy Format Code : Copy : Default Format ]
 [ Copy Format Code : Select Format... ]
 ```
 
-You can select the format hierarchically by selecting the menu.
-This hierarchical structure can all be changed in the settings.
+### [ Copy Format Code : Copy : Default Format ]
+
+If you specify multiple selections and select this command, copies are made to the clipboard according to the specification [Markdown LineNumber : Cut MinIndent].
+
+### [ Copy Format Code : Select Format... ]
+
+If you specify multiple selections and select this command, you can choose a function according to the menu settings below.
+
+The text formatted with the content of the selected items is copied to the clipboard.
+
 
 Default Setting
 ```
@@ -162,6 +171,16 @@ Default Setting
 settings.json
 ```json
 {
+
+  "CopyFormatCode.CopyDefaultFormat": {
+    "label": "Markdown LineNumber : Cut MinIndent",
+    "format": {
+      "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
+      "body": "%NumberFile%: %LineCutMinIndent%",
+      "bodySeparator": ":",
+      "footer": "```"
+    }
+  },
   "CopyFormatCode.SelectFormatMenu": [
     {
       "label": "Markdown",

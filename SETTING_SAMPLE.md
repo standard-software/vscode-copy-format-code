@@ -5,6 +5,15 @@ Default Setting
 settings.json
 ```json
 {
+  "CopyFormatCode.CopyDefaultFormat": {
+    "label": "Markdown LineNumber : Cut MinIndent",
+    "format": {
+      "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
+      "body": "%NumberFile%: %LineCutMinIndent%",
+      "bodySeparator": ":",
+      "footer": "```"
+    }
+  },
   "CopyFormatCode.SelectFormatMenu": [
     {
       "label": "Markdown",
