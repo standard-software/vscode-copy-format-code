@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.2.0] - 2024/08/09 Fri
+- change submenumark
+
 ## [1.1.1] - 2024/08/06 Tue
 - update README
   - default key bind

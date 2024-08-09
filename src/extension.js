@@ -347,7 +347,7 @@ function activate(context) {
       } else if (formatData.items) {
         commands.push({
           label: formatData.label,
-          description: `▸`,
+          description: `>>`,
           func: () => {
             selectFormat(
               `${_subLastDelimLast(placeHolder, ` : `)} : ${formatData.label}`,
