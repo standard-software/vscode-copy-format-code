@@ -2,6 +2,8 @@
 
 ## [1.2.0] - 2024/08/09 Fri
 - change submenumark
+- Change Copy Default Format -> Copy Format 1
+- Add Copy Format 2, 3
 
 ## [1.1.1] - 2024/08/06 Tue
 - update README

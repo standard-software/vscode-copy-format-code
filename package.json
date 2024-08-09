@@ -51,7 +51,7 @@
       "type": "object",
       "title": "CopyFormatCode",
       "properties": {
-        "CopyFormatCode.CopyDefaultFormat": {
+        "CopyFormatCode.CopyFormat1": {
           "default": {
             "label": "Markdown LineNumber : Cut MinIndent",
             "format": {
@@ -59,6 +59,27 @@
               "body": "%NumberFile%: %LineCutMinIndent%",
               "bodySeparator": ":",
               "footer": "```"
+            }
+          }
+        },
+        "CopyFormatCode.CopyFormat2": {
+          "default": {
+            "label": "Markdown : Cut MinIndent",
+            "format": {
+              "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+              "body": "%LineCutMinIndent%",
+              "bodySeparator": ":",
+              "footer": "```"
+            }
+          }
+        },
+        "CopyFormatCode.CopyFormat3": {
+          "default": {
+            "label": "Header RelativePath LineNumber : Cut MinIndent",
+            "format": {
+              "header": "%FolderPathRelativeProjectSlash%/\n%FileName%",
+              "body": "%NumberFile%: %LineCutMinIndent%",
+              "bodySeparator": ""
             }
           }
         },
@@ -422,17 +443,35 @@
     "commands": [
       {
         "command": "vscode-copy-format-code.SelectFormat",
-        "title": "Copy Format Code : Select Format..."
+        "title": "Copy Format Code : Select Format ..."
       },
       {
-        "command": "vscode-copy-format-code.CopyDefaultFormat",
-        "title": "Copy Format Code : Copy : Default Format"
+        "command": "vscode-copy-format-code.CopyFormat1",
+        "title": "Copy Format Code : Copy : Format 1"
+      },
+      {
+        "command": "vscode-copy-format-code.CopyFormat2",
+        "title": "Copy Format Code : Copy : Format 2"
+      },
+      {
+        "command": "vscode-copy-format-code.CopyFormat3",
+        "title": "Copy Format Code : Copy : Format 3"
       }
     ],
     "keybindings": [
       {
-        "command": "vscode-copy-format-code.CopyDefaultFormat",
+        "command": "vscode-copy-format-code.CopyFormat1",
         "key": "alt+ctrl+c",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscode-copy-format-code.CopyFormat2",
+        "key": "alt+shift+c",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscode-copy-format-code.CopyFormat3",
+        "key": "alt+ctrl+shift+c",
         "when": "editorTextFocus"
       }
     ]

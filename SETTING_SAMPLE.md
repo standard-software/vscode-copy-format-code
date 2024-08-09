@@ -5,13 +5,30 @@ Default Setting
 settings.json
 ```json
 {
-  "CopyFormatCode.CopyDefaultFormat": {
+  "CopyFormatCode.CopyFormat1": {
     "label": "Markdown LineNumber : Cut MinIndent",
     "format": {
       "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
       "body": "%NumberFile%: %LineCutMinIndent%",
       "bodySeparator": ":",
       "footer": "```"
+    }
+  },
+  "CopyFormatCode.CopyFormat2": {
+    "label": "Markdown : Cut MinIndent",
+    "format": {
+      "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+      "body": "%LineCutMinIndent%",
+      "bodySeparator": ":",
+      "footer": "```"
+    }
+  },
+  "CopyFormatCode.CopyFormat3": {
+    "label": "Header RelativePath LineNumber : Cut MinIndent",
+    "format": {
+      "header": "%FolderPathRelativeProjectSlash%/\n%FileName%",
+      "body": "%NumberFile%: %LineCutMinIndent%",
+      "bodySeparator": ""
     }
   },
   "CopyFormatCode.SelectFormatMenu": [

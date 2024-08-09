@@ -35,20 +35,28 @@ Japanese / English
 ### Command
 
 ```
-[ Copy Format Code : Copy : Default Format ]
+[ Copy Format Code : Copy : Format 1 ]
+[ Copy Format Code : Copy : Format 2 ]
+[ Copy Format Code : Copy : Format 3 ]
 [ Copy Format Code : Select Format... ]
 ```
 
-| Command               | Default Key Windows     | Default Key Mac         |
-|-                      |-                        | -                       |
-| Copy : Default Format | Alt + Ctrl + c          | Opt + Ctrl + c          |
+| Command         | Default Function                                | Default Key Windows     | Default Key Mac         |
+|-                |-                                                |-                        | -                       |
+| Copy : Format 1 | Markdown LineNumber : Cut MinIndent             | Alt + Ctrl + C          | Opt + Ctrl + C          |
+| Copy : Format 2 | Markdown : Cut MinIndent                        | Alt + Shift + C         | Opt + Shift + C         |
+| Copy : Format 3 | Header RelativePath LineNumber : Cut MinIndent  | Alt + Ctrl + Shift + C  | Opt + Ctrl + Shift + C  |
+
+### [ Copy Format Code : Copy : Format 1,2,3 ]
+
+Selecting multiple selections and this command will copy them to the clipboard according to your settings.
+
+To change the settings, edit the setting.json.
+
+[Default Setting ./SETTING_SAMPLE.md](./SETTING_SAMPLE.md)
 
 
-### [ Copy Format Code : Copy : Default Format ]
-
-If you specify multiple selections and select this command, copies are made to the clipboard according to the specification [Markdown LineNumber : Cut MinIndent].
-
-### [ Copy Format Code : Select Format... ]
+### [ Copy Format Code : Select Format ... ]
 
 If you specify multiple selections and select this command, you can choose a function according to the menu settings below.
 
@@ -57,7 +65,7 @@ The text formatted with the content of the selected items is copied to the clipb
 
 Default Setting
 ```
-- Copy Format Code : Select Format...
+- Copy Format Code : Select Format ...
   - Markdown >>
       - Markdown
       - Markdown : Cut MinIndent

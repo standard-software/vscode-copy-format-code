@@ -29,9 +29,9 @@ const getConfigFormatMenuItems = () => {
   return formatData;
 };
 
-const getConfigDefaultFormat = () => {
+const getConfigFormat = (configName) => {
   const formatData = vscode.workspace
-    .getConfiguration(`CopyFormatCode`).get(`CopyDefaultFormat`);
+    .getConfiguration(`CopyFormatCode`).get(configName);
   return formatData;
 };
 
@@ -375,9 +375,25 @@ function activate(context) {
   );
 
   registerCommand(context,
-    `vscode-copy-format-code.CopyDefaultFormat`,
+    `vscode-copy-format-code.CopyFormat1`,
     () => {
-      const formatData = getConfigDefaultFormat();
+      const formatData = getConfigFormat(`CopyFormat1`);
+      copyCode(formatData.format);
+    }
+  );
+
+  registerCommand(context,
+    `vscode-copy-format-code.CopyFormat2`,
+    () => {
+      const formatData = getConfigFormat(`CopyFormat2`);
+      copyCode(formatData.format);
+    }
+  );
+
+  registerCommand(context,
+    `vscode-copy-format-code.CopyFormat3`,
+    () => {
+      const formatData = getConfigFormat(`CopyFormat3`);
       copyCode(formatData.format);
     }
   );
