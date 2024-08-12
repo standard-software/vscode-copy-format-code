@@ -1,4 +1,5 @@
 const vscode = require(`vscode`);
+const split = require(`graphemesplit`);
 path = require(`path`);
 
 const {
@@ -21,6 +22,16 @@ const assert = (condition, message) => {
   if (!condition) {
     throw new Error(message || `Assertion failed`);
   }
+};
+
+const textLength = (str) => {
+  let result = 0;
+  for(const char of split(str)){
+    const codePoint = char.codePointAt(0);
+    const len = 0x00 <= codePoint && codePoint <= 0xFF ? 1 : 2;
+    result += len;
+  }
+  return result;
 };
 
 const getConfigFormatMenuItems = () => {
@@ -283,7 +294,7 @@ const formatBody = (editor, bodyFormat, bodySeparator) => {
       result.push(line + lineBreak);
 
       maxLineLength = Math.max(
-        maxLineLength, line.length - `%SpacePadEnd%`.length
+        maxLineLength, textLength(line) - `%SpacePadEnd%`.length
       );
     }
     results.push(result);
@@ -295,7 +306,7 @@ const formatBody = (editor, bodyFormat, bodySeparator) => {
         line = line.replaceAll(
           `%SpacePadEnd%`,
           ` `.repeat(
-            maxLineLength -  (line.length - `%SpacePadEnd%`.length - lineBreak.length)
+            maxLineLength -  (textLength(line) - `%SpacePadEnd%`.length - lineBreak.length)
           )
         );
         result[i] = line;

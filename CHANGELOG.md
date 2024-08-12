@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.3.0] - 2024/08/12 Mon
+- use graphemesplit
+  - SpacePadEnd option supports Japanese double-byte character lengths. 
+
 ## [1.2.0] - 2024/08/09 Fri
 - change submenumark
 - Change Copy Default Format -> Copy Format 1

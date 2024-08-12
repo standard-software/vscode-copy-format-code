@@ -286,25 +286,25 @@ The default settings were separated into separate files because they are quite l
 
 ### format body
 
-| Format Text                         | note                                                      |
-|-                                    |-                                                          |
-| %NumberStart1%                      | Line numbers starting from 1                              | 
-| %NumberFile%                        | File line number                                          |
-|                                     |                                                           |
-| %Line%                              | Text of line                                              |
-| %LineCutMinIndent%                  | Text of line with minimum indentation cut off             |
-| %LineTrim%                          | Text of line with front and back trimmed                  |
-| %LineTrimFirst%                     | Text of line with front trimmed                           |
-| %LineTrimLast%                      | Text of line with back trimmed                            |
-|                                     |                                                           |
-| %SpaceMinIndent%                    | Space for minimum indent (Tabs are not considered)        |
-| %SpacePadEnd%                       | Set to fill in the back of the line with spaces to align  |
-|                                     |                                                           |
-| %SkipBlankLine%                     | Set to skip lines that would be blank if trimmed.         |
-|                                     |                                                           |
-| \%                                  | %                                                         |
-| \\                                  | \                                                         |
-|                                     |                                                           |
+| Format Text                         | note                                                                                                        |
+|-                                    |-                                                                                                            |
+| %NumberStart1%                      | Line numbers starting from 1                              |                                                 |
+| %NumberFile%                        | File line number                                                                                            |
+|                                     |                                                                                                             |
+| %Line%                              | Text of line                                                                                                |
+| %LineCutMinIndent%                  | Text of line with minimum indentation cut off                                                               |
+| %LineTrim%                          | Text of line with front and back trimmed                                                                    |
+| %LineTrimFirst%                     | Text of line with front trimmed                                                                             |
+| %LineTrimLast%                      | Text of line with back trimmed                                                                              |
+|                                     |                                                                                                             |
+| %SpaceMinIndent%                    | Space for minimum indent (Tabs are not considered)                                                          |
+| %SpacePadEnd%                       | Set to fill in the back of the line with spaces to align (supports Japanese double-byte character lengths.) |
+|                                     |                                                                                                             |
+| %SkipBlankLine%                     | Set to skip lines that would be blank if trimmed.                                                           |
+|                                     |                                                                                                             |
+| \%                                  | %                                                                                                           |
+| \\                                  | \                                                                                                           |
+|                                     |                                                                                                             |
 
 ### format bodySeparator
 
