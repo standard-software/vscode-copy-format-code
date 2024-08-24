@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.4.0] - 2024/08/24 Sat
+- update README
+
 ## [1.3.0] - 2024/08/12 Mon
 - use graphemesplit
   - SpacePadEnd option supports Japanese double-byte character lengths. 

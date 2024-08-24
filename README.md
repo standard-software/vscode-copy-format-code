@@ -169,29 +169,50 @@ Default Setting
 > ~~~
 > TestFile/
 > test.txt
-> 04:   item 1
-> 07:     item 1-1          
-> 08:       item 1-1-1
-> 09:       item 1-1-2
-> 10:     item 1-2
-> 14:   item 2
-> 15:     item 2-1
-> 16:     item 2-2
+> 04: item 1
+> 07:   item 1-1          
+> 08:     item 1-1-1
+> 09:     item 1-1-2
+> 10:   item 1-2
+> 14: item 2
+> 15:   item 2-1
+> 16:   item 2-2
 > ~~~
 
-## Setting Sample
+## Setting
 
-settings.json
+settings.json can be found in the following file.
+
+[Default Setting ./SETTING_SAMPLE.md](./SETTING_SAMPLE.md)
+
+### Setting Specifications
+
 ```json
 {
-
-  "CopyFormatCode.CopyDefaultFormat": {
+  "CopyFormatCode.CopyFormat1": {
     "label": "Markdown LineNumber : Cut MinIndent",
     "format": {
       "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
       "body": "%NumberFile%: %LineCutMinIndent%",
       "bodySeparator": ":",
       "footer": "```"
+    }
+  },
+  "CopyFormatCode.CopyFormat2": {
+    "label": "Markdown : Cut MinIndent",
+    "format": {
+      "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+      "body": "%LineCutMinIndent%",
+      "bodySeparator": ":",
+      "footer": "```"
+    }
+  },
+  "CopyFormatCode.CopyFormat3": {
+    "label": "Header RelativePath LineNumber : Cut MinIndent",
+    "format": {
+      "header": "%FolderPathRelativeProjectSlash%/\n%FileName%",
+      "body": "%NumberFile%: %LineCutMinIndent%",
+      "bodySeparator": ""
     }
   },
   "CopyFormatCode.SelectFormatMenu": [
@@ -231,24 +252,6 @@ settings.json
     }
   ],
 }
-```
-
-The default settings were separated into separate files because they are quite long.
-
-[Default Setting ./SETTING_SAMPLE.md](./SETTING_SAMPLE.md)
-
-## Setting Specifications
-
-```json
-    {
-      "label": "Markdown",
-      "format": {
-        "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
-        "body": "%Line%",
-        "bodySeparator": ":",
-        "footer": "```"
-      }
-    },
 ```
 
 ###  format header
