@@ -2,6 +2,7 @@
 
 ## [1.4.0] - 2024/08/24 Sat
 - update README
+- showInformationMessage after being copied
 
 ## [1.3.0] - 2024/08/12 Mon
 - use graphemesplit

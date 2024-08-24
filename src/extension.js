@@ -353,6 +353,7 @@ function activate(context) {
           description: ``,
           func: () => {
             copyCode(formatData.format);
+            vscode.window.showInformationMessage(`Copied : ${formatData.label}`);
           }
         });
       } else if (formatData.items) {
@@ -390,6 +391,7 @@ function activate(context) {
     () => {
       const formatData = getConfigFormat(`CopyFormat1`);
       copyCode(formatData.format);
+      vscode.window.showInformationMessage(`Copied : Format 1 : ${formatData.label}`);
     }
   );
 
@@ -398,6 +400,7 @@ function activate(context) {
     () => {
       const formatData = getConfigFormat(`CopyFormat2`);
       copyCode(formatData.format);
+      vscode.window.showInformationMessage(`Copied : Format 2 : ${formatData.label}`);
     }
   );
 
@@ -406,6 +409,7 @@ function activate(context) {
     () => {
       const formatData = getConfigFormat(`CopyFormat3`);
       copyCode(formatData.format);
+      vscode.window.showInformationMessage(`Copied : Format 3 : ${formatData.label}`);
     }
   );
 
