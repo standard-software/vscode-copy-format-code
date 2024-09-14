@@ -56,10 +56,10 @@
       "properties": {
         "CopyFormatCode.CopyFormat1": {
           "default": {
-            "label": "Markdown LineNumber : Cut MinIndent",
+            "label": "Markdown LineNumber",
             "format": {
               "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
-              "body": "%NumberFile%: %LineCutMinIndent%",
+              "body": "%NumberFile%: %Line%",
               "bodySeparator": ":",
               "footer": "```"
             }
@@ -67,10 +67,10 @@
         },
         "CopyFormatCode.CopyFormat2": {
           "default": {
-            "label": "Markdown : Cut MinIndent",
+            "label": "Markdown",
             "format": {
               "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
-              "body": "%LineCutMinIndent%",
+              "body": "%Line%",
               "bodySeparator": ":",
               "footer": "```"
             }

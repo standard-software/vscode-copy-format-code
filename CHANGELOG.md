@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.5.1] - 2024/09/14 Sat
+- Change Copy Default Format 1, 2
+  - Cut Min Indent >> none
+
 ## [1.5.0] - 2024/09/14 Sat
 - fix: Fixed a problem when copying text containing regular expressions
 
