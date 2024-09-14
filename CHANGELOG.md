@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.5.0] - 2024/09/14 Sat
+- fix: Fixed a problem when copying text containing regular expressions
+
 ## [1.4.0] - 2024/08/24 Sat
 - update README
 - showInformationMessage after being copied

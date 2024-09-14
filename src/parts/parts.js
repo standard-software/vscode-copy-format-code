@@ -30,6 +30,7 @@ const { _subLastDelimFirst } = require(`./string/_subLastDelimFirst.js`);
 const { _subLastDelimLast } = require(`./string/_subLastDelimLast.js`);
 const { _paddingFirst } = require(`./string/_paddingFirst.js`);
 const { _paddingLast } = require(`./string/_paddingLast.js`);
+const { _replaceAllArray } = require(`./string/_replaceAllArray.js`);
 
 const { __min } = require(`./array/__min.js`);
 const { __max } = require(`./array/__max.js`);
@@ -64,6 +65,7 @@ module.exports = {
   _subFirstDelimFirst, _subFirstDelimLast,
   _subLastDelimFirst, _subLastDelimLast,
   _paddingFirst, _paddingLast,
+  _replaceAllArray,
 
   __min, __max,
   _findFirstIndex, _findFirst,

@@ -289,7 +289,7 @@ const formatBody = (editor, bodyFormat, bodySeparator) => {
 
       let line = bodyFormat;
       for (const [oldPattern, newPattern] of replaceTable) {
-        line = line.replaceAll(oldPattern, newPattern);
+        line = line.split(oldPattern).join(newPattern);
       }
       result.push(line + lineBreak);
 
