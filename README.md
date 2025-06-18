@@ -43,8 +43,8 @@ Japanese / English
 
 | Command         | Default Function                                | Default Key Windows     | Default Key Mac         |
 |-                |-                                                |-                        | -                       |
-| Copy : Format 1 | Markdown LineNumber : Cut MinIndent             | Alt + Ctrl + C          | Opt + Ctrl + C          |
-| Copy : Format 2 | Markdown : Cut MinIndent                        | Alt + Shift + C         | Opt + Shift + C         |
+| Copy : Format 1 | Markdown LineNumber                             | Alt + Ctrl + C          | Opt + Ctrl + C          |
+| Copy : Format 2 | Markdown                                        | Alt + Shift + C         | Opt + Shift + C         |
 | Copy : Format 3 | Header RelativePath LineNumber : Cut MinIndent  | Alt + Ctrl + Shift + C  | Opt + Ctrl + Shift + C  |
 
 ### [ Copy Format Code : Copy : Format 1,2,3 ]
@@ -190,19 +190,19 @@ settings.json can be found in the following file.
 ```json
 {
   "CopyFormatCode.CopyFormat1": {
-    "label": "Markdown LineNumber : Cut MinIndent",
+    "label": "Markdown LineNumber",
     "format": {
       "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
-      "body": "%NumberFile%: %LineCutMinIndent%",
+      "body": "%NumberFile%: %Line%",
       "bodySeparator": ":",
       "footer": "```"
     }
   },
   "CopyFormatCode.CopyFormat2": {
-    "label": "Markdown : Cut MinIndent",
+    "label": "Markdown",
     "format": {
       "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
-      "body": "%LineCutMinIndent%",
+      "body": "%Line%",
       "bodySeparator": ":",
       "footer": "```"
     }
