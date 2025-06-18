@@ -2,6 +2,7 @@
 
 ## [1.5.2] - 2025/06/19 Thu
 - update README
+- update package.json default setting
 
 ## [1.5.1] - 2024/09/14 Sat
 - Change Copy Default Format 1, 2

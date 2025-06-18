@@ -36,9 +36,6 @@
     "format",
     "code"
   ],
-  "enabledApiProposals": [
-    "quickPickSeparators"
-  ],
   "devDependencies": {
     "@eslint/js": "^9.3.0",
     "eslint": "^9.3.0",
@@ -58,7 +55,7 @@
           "default": {
             "label": "Markdown LineNumber",
             "format": {
-              "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
+              "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName%",
               "body": "%NumberFile%: %Line%",
               "bodySeparator": ":",
               "footer": "```"
@@ -69,7 +66,7 @@
           "default": {
             "label": "Markdown",
             "format": {
-              "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+              "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
               "body": "%Line%",
               "bodySeparator": ":",
               "footer": "```"
@@ -95,7 +92,7 @@
                 {
                   "label": "Markdown",
                   "format": {
-                    "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+                    "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
                     "body": "%Line%",
                     "bodySeparator": ":",
                     "footer": "```"
@@ -108,7 +105,7 @@
                 {
                   "label": "Markdown : Cut MinIndent",
                   "format": {
-                    "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+                    "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
                     "body": "%LineCutMinIndent%",
                     "bodySeparator": ":",
                     "footer": "```"
@@ -117,7 +114,7 @@
                 {
                   "label": "Markdown : Delete BlankLine",
                   "format": {
-                    "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+                    "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
                     "body": "%SkipBlankLine%%Line%",
                     "bodySeparator": ":",
                     "footer": "```"
@@ -126,7 +123,7 @@
                 {
                   "label": "Markdown : Cut MinIndent and Delete BlankLine",
                   "format": {
-                    "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+                    "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
                     "body": "%SkipBlankLine%%LineCutMinIndent%",
                     "bodySeparator": ":",
                     "footer": "```"
@@ -140,7 +137,7 @@
                 {
                   "label": "Markdown LineNumber",
                   "format": {
-                    "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
+                    "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName%",
                     "body": "%NumberFile%: %Line%",
                     "bodySeparator": ":",
                     "footer": "```"
@@ -153,7 +150,7 @@
                 {
                   "label": "Markdown LineNumber : Cut MinIndent",
                   "format": {
-                    "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
+                    "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName%",
                     "body": "%NumberFile%: %LineCutMinIndent%",
                     "bodySeparator": ":",
                     "footer": "```"
@@ -162,7 +159,7 @@
                 {
                   "label": "Markdown LineNumber : Delete BlankLine",
                   "format": {
-                    "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
+                    "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName%",
                     "body": "%NumberFile%: %Line%%SkipBlankLine%",
                     "bodySeparator": ":",
                     "footer": "```"
@@ -171,7 +168,7 @@
                 {
                   "label": "Markdown LineNumber : Cut MinIndent and Delete BlankLine",
                   "format": {
-                    "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
+                    "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName%",
                     "body": "%NumberFile%: %LineCutMinIndent%%SkipBlankLine%",
                     "bodySeparator": ":",
                     "footer": "```"
@@ -325,7 +322,7 @@
                     {
                       "label": "Markdown  : Delete Indent",
                       "format": {
-                        "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+                        "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
                         "body": "%LineTrimFirst%",
                         "bodySeparator": ":",
                         "footer": "```"
@@ -334,7 +331,7 @@
                     {
                       "label": "Markdown LineNumber : Delete Indent",
                       "format": {
-                        "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+                        "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
                         "body": "%NumberFile%: %LineTrimFirst%",
                         "bodySeparator": ":",
                         "footer": "```"
@@ -364,7 +361,7 @@
                     {
                       "label": "Markdown : Fill Spaces EndOfLine",
                       "format": {
-                        "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+                        "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
                         "body": "%Line%%SpacePadEnd%",
                         "bodySeparator": ":",
                         "footer": "```"
@@ -373,7 +370,7 @@
                     {
                       "label": "Markdown LineNumber : Fill Spaces EndOfLine",
                       "format": {
-                        "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+                        "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
                         "body": "%NumberFile%: %Line%%SpacePadEnd%",
                         "bodySeparator": ":",
                         "footer": "```"
@@ -403,7 +400,7 @@
                     {
                       "label": "Markdown : Delete Indent and Fill Spaces EndOfLine",
                       "format": {
-                        "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+                        "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
                         "body": "%LineTrimFirst%%SpacePadEnd%",
                         "bodySeparator": ":",
                         "footer": "```"
@@ -412,7 +409,7 @@
                     {
                       "label": "Markdown LineNumber : Delete Indent and Fill Spaces EndOfLine",
                       "format": {
-                        "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+                        "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
                         "body": "%NumberFile%: %LineTrimFirst%%SpacePadEnd%",
                         "bodySeparator": ":",
                         "footer": "```"
