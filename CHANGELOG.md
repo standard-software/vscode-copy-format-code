@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.5.3] - 2025/06/20 Fri
+- update README
+
 ## [1.5.2] - 2025/06/19 Thu
 - update README
 - update package.json default setting

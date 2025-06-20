@@ -108,9 +108,7 @@ Default Setting
 
 ### Markdown
 > ~~~
-> ```txt
-> // TestFile/
-> // test.txt : 3-17
+> ```txt : TestFile/test.txt : 3-17
 > 
 >   item 1
 >   
@@ -130,9 +128,7 @@ Default Setting
 
 ### Markdown LineNumber : Cut MinIndent
 > ~~~
-> ```txt
-> // TestFile/
-> // test.txt
+> ```txt : TestFile/test.txt
 > 03: 
 > 04: item 1
 > 05: 
@@ -192,7 +188,7 @@ settings.json can be found in the following file.
   "CopyFormatCode.CopyFormat1": {
     "label": "Markdown LineNumber",
     "format": {
-      "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
+      "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName%",
       "body": "%NumberFile%: %Line%",
       "bodySeparator": ":",
       "footer": "```"
@@ -201,7 +197,7 @@ settings.json can be found in the following file.
   "CopyFormatCode.CopyFormat2": {
     "label": "Markdown",
     "format": {
-      "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+      "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
       "body": "%Line%",
       "bodySeparator": ":",
       "footer": "```"
@@ -219,7 +215,7 @@ settings.json can be found in the following file.
     {
       "label": "Markdown",
       "format": {
-        "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName% : %NumberStart%-%NumberEnd%",
+        "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName% : %NumberStart%-%NumberEnd%",
         "body": "%Line%",
         "bodySeparator": ":",
         "footer": "```"
@@ -228,7 +224,7 @@ settings.json can be found in the following file.
     {
       "label": "Markdown LineNumber : Cut MinIndent",
       "format": {
-        "header": "```%FileExt%\n// %FolderPathRelativeProjectSlash%/\n// %FileName%",
+        "header": "```%FileExt% : %FolderPathRelativeProjectSlash%/%FileName%",
         "body": "%NumberFile%: %LineCutMinIndent%",
         "bodySeparator": ":",
         "footer": "```"
