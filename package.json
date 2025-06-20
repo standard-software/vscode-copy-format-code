@@ -2,11 +2,11 @@
   "name": "vscode-copy-format-code",
   "displayName": "Copy Format Code",
   "description": "This extension can be copied with code headers and other decorations.",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "scripts": {
     "lint": "npx eslint",
     "lintfix": "npx eslint --fix",
-    "pack": "npx -y vsce package && code --install-extension vscode-copy-format-code-1.5.2.vsix",
+    "pack": "npx -y vsce package && code --install-extension vscode-copy-format-code-1.5.3.vsix",
     "": ""
   },
   "icon": "vscode-copy-format-code_icon.png",
